@@ -83,17 +83,23 @@ void PhoneBook::searchContact() {
 
     displayContacts();  // Show the list first
 
-    int index;
     std::cout << "Enter index to view details (1 - " << totalContacts << "): ";
+    
+    std::string input;
+    std::getline(std::cin, input);  // Read the entire input line
 
-    // Validate user input to prevent looping issues
-    while (!(std::cin >> index) || index < 1 || index > totalContacts) {
-        std::cin.clear(); // Reset fail state
-        std::cin.ignore(10000, '\n'); // Remove invalid input
-        std::cout << "Invalid input! Please enter a number between 1 and " << totalContacts << ": ";
+    // Validate input: Check if input is empty or contains non-numeric characters
+    if (input.empty() || input.find_first_not_of("0123456789") != std::string::npos) {
+        std::cout << "Invalid input! Please enter a number between 1 and " << totalContacts << "." << std::endl;
+        return;
     }
 
-    std::cin.ignore(); // Clear the buffer after valid input
+    int index = atoi(input.c_str()); // Convert string to integer safely
+
+    if (index < 1 || index > totalContacts) {
+        std::cout << "Invalid index! Please enter a number between 1 and " << totalContacts << "." << std::endl;
+        return;
+    }
 
     // Convert user input (1-8) to the correct index in the circular buffer
     int realIndex = (contactIndex + index - 1) % totalContacts;
@@ -105,3 +111,4 @@ void PhoneBook::searchContact() {
     std::cout << "Phone Number: " << contacts[realIndex].getPhoneNumber() << std::endl;
     std::cout << "Darkest Secret: " << contacts[realIndex].getDarkestSecret() << std::endl;
 }
+
