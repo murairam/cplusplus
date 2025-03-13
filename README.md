@@ -55,4 +55,5 @@ In this example, the program prompts the user to enter a number, reads the input
 
 It's important to handle input errors when using `std::cin`, as invalid input can cause the stream to enter a fail state. You can check the state of the stream using methods like `std::cin.fail()` and clear the error state with `std::cin.clear()`. This ensures that your program can handle unexpected input gracefully.
 
-Similar code found with 2 license types
+resources 
+https://learn.microsoft.com/en-us/cpp/cpp/namespaces-cpp?view=msvc-170
