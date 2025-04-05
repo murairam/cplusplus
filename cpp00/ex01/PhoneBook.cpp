@@ -10,30 +10,76 @@ PhoneBook::PhoneBook() {
     totalContacts = 0;  // Tracks the number of contacts
 }
 
+bool isValidInput(const std::string& str) {
+    return !str.empty() && str.find_first_not_of(" \t\n\v\f\r") != std::string::npos;
+}
+
+std::string trim(const std::string& str) {
+    size_t first = str.find_first_not_of(" \t\n\v\f\r");
+    if (first == std::string::npos) {
+        return ""; // String is all whitespace
+    }
+    size_t last = str.find_last_not_of(" \t\n\v\f\r");
+    return str.substr(first, (last - first + 1));
+}
+
+bool isNumeric(const std::string& str) {
+    if (str.empty()) {
+        return false;
+    }
+    for (size_t i = 0; i < str.length(); i++) {
+        if (!std::isdigit(str[i])) {
+            return false;
+        }
+    }
+    return true;
+}
+
 // Method to add a new contact
 void PhoneBook::addContact() {
     Contact newContact;
     std::string input;
 
-    std::cout << "Enter First Name: ";
-    std::getline(std::cin, input);
+    // First Name
+    do {
+        std::cout << "Enter First Name: ";
+        std::getline(std::cin, input);
+        input = trim(input); // Trim the input
+    } while (!isValidInput(input));
     newContact.setFirstName(input);
 
-    std::cout << "Enter Last Name: ";
-    std::getline(std::cin, input);
+    // Last Name
+    do {
+        std::cout << "Enter Last Name: ";
+        std::getline(std::cin, input);
+        input = trim(input); // Trim the input
+    } while (!isValidInput(input));
     newContact.setLastName(input);
 
-    std::cout << "Enter Nickname: ";
-    std::getline(std::cin, input);
+    // Nickname
+    do {
+        std::cout << "Enter Nickname: ";
+        std::getline(std::cin, input);
+        input = trim(input); // Trim the input
+    } while (!isValidInput(input));
     newContact.setNickname(input);
 
-    std::cout << "Enter Phone Number: ";
-    std::getline(std::cin, input);
+    // Phone Number
+    do {
+        std::cout << "Enter Phone Number: ";
+        std::getline(std::cin, input);
+        input = trim(input); // Trim the input
+    } while (!isNumeric(input));
     newContact.setPhoneNumber(input);
 
-    std::cout << "Enter Darkest Secret: ";
-    std::getline(std::cin, input);
+    // Darkest Secret
+    do {
+        std::cout << "Enter Darkest Secret: ";
+        std::getline(std::cin, input);
+        input = trim(input); // Trim the input
+    } while (!isValidInput(input));
     newContact.setDarkestSecret(input);
+
 
     // Store contact in a circular buffer
     contacts[contactIndex] = newContact;
@@ -55,7 +101,6 @@ std::string formatText(std::string text) {
     return text;
 }
 
-// Display all contacts in a formatted table
 void PhoneBook::displayContacts() {
     if (totalContacts == 0) {
         std::cout << "No contacts available." << std::endl;
@@ -68,17 +113,16 @@ void PhoneBook::displayContacts() {
               << std::setw(10) << "Last Name" << "|"
               << std::setw(10) << "Nickname" << std::endl;
 
-    // Display in correct order, considering the circular buffer
+    // Display contacts in the circular buffer order
     for (int i = 0; i < totalContacts; i++) {
-        int displayIndex = (contactIndex + i) % totalContacts;  // Correct order
-        std::cout << std::setw(10) << (i + 1) << "|"
+        int displayIndex = (contactIndex + i) % 8; // Start from the current contactIndex
+        std::cout << std::setw(10) << (displayIndex + 1) << "|"
                   << std::setw(10) << formatText(contacts[displayIndex].getFirstName()) << "|"
                   << std::setw(10) << formatText(contacts[displayIndex].getLastName()) << "|"
                   << std::setw(10) << formatText(contacts[displayIndex].getNickname()) << std::endl;
     }
 }
 
-// Search for a contact by index
 void PhoneBook::searchContact() {
     if (totalContacts == 0) {
         std::cout << "No contacts to search!" << std::endl;
@@ -105,8 +149,8 @@ void PhoneBook::searchContact() {
         return;
     }
 
-    // Convert user input (1-8) to the correct index in the circular buffer
-    int realIndex = (contactIndex + index - 1) % totalContacts;
+    // Convert user input (1-based index) to the correct index in the circular buffer
+    int realIndex = (contactIndex - totalContacts + (index - 1) + 8) % 8;
 
     // Display selected contact's details
     std::cout << "First Name: " << contacts[realIndex].getFirstName() << std::endl;
@@ -115,4 +159,3 @@ void PhoneBook::searchContact() {
     std::cout << "Phone Number: " << contacts[realIndex].getPhoneNumber() << std::endl;
     std::cout << "Darkest Secret: " << contacts[realIndex].getDarkestSecret() << std::endl;
 }
-

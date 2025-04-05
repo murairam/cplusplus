@@ -6,17 +6,20 @@
 /*   By: mmiilpal <mmiilpal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 14:29:37 by mmiilpal          #+#    #+#             */
-/*   Updated: 2025/03/10 17:24:47 by mmiilpal         ###   ########.fr       */
+/*   Updated: 2025/04/05 16:58:04 by mmiilpal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHONEBOOK_HPP
 #define PHONEBOOK_HPP
 
+#include <algorithm>
 #include "Contact.hpp"
 #include <iostream>
 #include <iomanip> // For formatting table output
 #include <cstdlib>
+#include <cctype>
+#include <string>
 
 class PhoneBook {
 private:
