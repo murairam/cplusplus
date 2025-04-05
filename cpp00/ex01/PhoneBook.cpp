@@ -1,4 +1,8 @@
 #include "PhoneBook.hpp"
+// make sure printing is 10 characters long
+// contact cant be empty (addcontact.empty?)
+// phone number can only be digits, cant be numbers
+// if 9th contact is added, the first one is removed and the new contact goes to the first,  index the oldest one and overwwrite it when ninth is added
 
 // Constructor initializes indexes
 PhoneBook::PhoneBook() {
@@ -84,7 +88,7 @@ void PhoneBook::searchContact() {
     displayContacts();  // Show the list first
 
     std::cout << "Enter index to view details (1 - " << totalContacts << "): ";
-    
+
     std::string input;
     std::getline(std::cin, input);  // Read the entire input line
 
