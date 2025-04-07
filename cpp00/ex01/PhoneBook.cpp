@@ -97,10 +97,24 @@ void PhoneBook::addContact() {
 
 // Helper function to format text for display (max 10 characters)
 std::string formatText(std::string text) {
+    // Replace control characters with spaces
+    for (size_t i = 0; i < text.length(); i++) {
+        if (text[i] == '\t' || text[i] == '\n' || text[i] == '\r')
+            text[i] = ' ';
+    }
+
+    // Truncate if too long
     if (text.length() > 10)
-        return text.substr(0, 9) + "."; // Truncate and add "."
+        return text.substr(0, 9) + ".";
+
+    // Pad with spaces on the left if too short
+    while (text.length() < 10)
+        text = " " + text;
+
     return text;
 }
+
+
 
 void PhoneBook::displayContacts() {
     // Create array of valid contacts
@@ -153,7 +167,7 @@ void PhoneBook::searchContact() {
     int selectedIndex = atoi(input.c_str()); // What the user typed
 
     int foundIndex = -1;
-    
+
     for (int i = 0; i < totalContacts; i++) {
         if (contacts[i].getDisplayIndex() == selectedIndex) {
             foundIndex = i;
