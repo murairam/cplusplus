@@ -6,7 +6,7 @@
 /*   By: mmiilpal <mmiilpal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 14:25:27 by mmiilpal          #+#    #+#             */
-/*   Updated: 2025/03/10 14:30:19 by mmiilpal         ###   ########.fr       */
+/*   Updated: 2025/04/07 14:45:01 by mmiilpal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,13 @@ private:
     std::string nickname;
     std::string phone_number;
     std::string darkest_secret;
+    int displayIndex;
 
 public:
     // Constructor (optional, initializes values)
     Contact();
+    void setDisplayIndex(int index);
+    int getDisplayIndex();
 
     // Setter methods (to set values)
     void setFirstName(std::string name);

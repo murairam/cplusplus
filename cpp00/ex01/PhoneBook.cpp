@@ -80,6 +80,7 @@ void PhoneBook::addContact() {
     } while (!isValidInput(input));
     newContact.setDarkestSecret(input);
 
+    newContact.setDisplayIndex(contactIndex + 1); // logical position (1–8)
 
     // Store contact in a circular buffer
     contacts[contactIndex] = newContact;
@@ -102,26 +103,33 @@ std::string formatText(std::string text) {
 }
 
 void PhoneBook::displayContacts() {
-    if (totalContacts == 0) {
-        std::cout << "No contacts available." << std::endl;
-        return;
+    // Create array of valid contacts
+    Contact sortedContacts[8];
+    for (int i = 0; i < totalContacts; i++) {
+        sortedContacts[i] = contacts[i];
     }
 
-    // Table Header
-    std::cout << std::setw(10) << "Index" << "|"
-              << std::setw(10) << "First Name" << "|"
-              << std::setw(10) << "Last Name" << "|"
-              << std::setw(10) << "Nickname" << std::endl;
+    // Sort contacts by displayIndex
+    for (int i = 0; i < totalContacts - 1; i++) {
+        for (int j = i + 1; j < totalContacts; j++) {
+            if (sortedContacts[i].getDisplayIndex() > sortedContacts[j].getDisplayIndex()) {
+                Contact temp = sortedContacts[i];
+                sortedContacts[i] = sortedContacts[j];
+                sortedContacts[j] = temp;
+            }
+        }
+    }
 
-    // Display contacts in the circular buffer order
+    // Now print
     for (int i = 0; i < totalContacts; i++) {
-        int displayIndex = (contactIndex + i) % 8; // Start from the current contactIndex
-        std::cout << std::setw(10) << (displayIndex + 1) << "|"
-                  << std::setw(10) << formatText(contacts[displayIndex].getFirstName()) << "|"
-                  << std::setw(10) << formatText(contacts[displayIndex].getLastName()) << "|"
-                  << std::setw(10) << formatText(contacts[displayIndex].getNickname()) << std::endl;
+        Contact c = sortedContacts[i];
+        std::cout << std::setw(10) << c.getDisplayIndex() << "|"
+                << std::setw(10) << formatText(c.getFirstName()) << "|"
+                << std::setw(10) << formatText(c.getLastName()) << "|"
+                << std::setw(10) << formatText(c.getNickname()) << std::endl;
     }
 }
+
 
 void PhoneBook::searchContact() {
     if (totalContacts == 0) {
@@ -142,20 +150,27 @@ void PhoneBook::searchContact() {
         return;
     }
 
-    int index = atoi(input.c_str()); // Convert string to integer safely
+    int selectedIndex = atoi(input.c_str()); // What the user typed
 
-    if (index < 1 || index > totalContacts) {
-        std::cout << "Invalid index! Please enter a number between 1 and " << totalContacts << "." << std::endl;
+    int foundIndex = -1;
+    
+    for (int i = 0; i < totalContacts; i++) {
+        if (contacts[i].getDisplayIndex() == selectedIndex) {
+            foundIndex = i;
+            break;
+        }
+    }
+    
+    if (foundIndex == -1) {
+        std::cout << "Invalid index! Please enter a number between 1 and 8." << std::endl;
         return;
     }
-
-    // Convert user input (1-based index) to the correct index in the circular buffer
-    int realIndex = (contactIndex - totalContacts + (index - 1) + 8) % 8;
-
-    // Display selected contact's details
-    std::cout << "First Name: " << contacts[realIndex].getFirstName() << std::endl;
-    std::cout << "Last Name: " << contacts[realIndex].getLastName() << std::endl;
-    std::cout << "Nickname: " << contacts[realIndex].getNickname() << std::endl;
-    std::cout << "Phone Number: " << contacts[realIndex].getPhoneNumber() << std::endl;
-    std::cout << "Darkest Secret: " << contacts[realIndex].getDarkestSecret() << std::endl;
+    
+    // Display details
+    Contact &c = contacts[foundIndex];
+    std::cout << "First Name: " << c.getFirstName() << std::endl;
+    std::cout << "Last Name: " << c.getLastName() << std::endl;
+    std::cout << "Nickname: " << c.getNickname() << std::endl;
+    std::cout << "Phone Number: " << c.getPhoneNumber() << std::endl;
+    std::cout << "Darkest Secret: " << c.getDarkestSecret() << std::endl;
 }

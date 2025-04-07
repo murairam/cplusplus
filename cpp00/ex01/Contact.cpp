@@ -1,7 +1,7 @@
 #include "Contact.hpp"
 
 // Constructor (optional, can initialize empty values)
-Contact::Contact() {}
+Contact::Contact() {displayIndex = 0;}
 
 // Setter Methods
 void Contact::setFirstName(std::string name) { first_name = name; }
@@ -16,3 +16,8 @@ std::string Contact::getLastName() { return last_name; }
 std::string Contact::getNickname() { return nickname; }
 std::string Contact::getPhoneNumber() { return phone_number; }
 std::string Contact::getDarkestSecret() { return darkest_secret; }
+
+void Contact::setDisplayIndex(int index) { displayIndex = index; }
+
+int Contact::getDisplayIndex() { return displayIndex; }
+
