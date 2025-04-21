@@ -3,21 +3,20 @@
 #include "Harl.hpp"
 #include <iostream>
 
-int main() {
+int main(int argc, char** argv) {
+    if (argc != 2) {
+        std::cerr << "Usage: ./harl <complaints_file>" << std::endl;
+        return 1;
+    }
+
     Harl harl;
+    harl.loadMessages(argv[1]);
 
+    // Test all levels
     harl.complain("DEBUG");
-    std::cout << std::endl;
-
     harl.complain("INFO");
-    std::cout << std::endl;
-
     harl.complain("WARNING");
-    std::cout << std::endl;
-
     harl.complain("ERROR");
-    std::cout << std::endl;
 
-    harl.complain("RANDOM");  // Unknown level
     return 0;
 }

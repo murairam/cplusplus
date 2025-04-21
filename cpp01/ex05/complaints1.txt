@@ -1,0 +1,4 @@
+DEBUG:The quantum flux stabilizer is misaligned. Fascinating.
+INFO:If we increase the antimatter injection rate by 4%, warp efficiency improves.
+WARNING:Gravitational distortion is increasing. Recommend orbital adjustment.
+ERROR:Black hole detected on collision course. Recommend immediate evacuation.

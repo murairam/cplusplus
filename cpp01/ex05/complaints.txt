@@ -1,0 +1,4 @@
+DEBUG:I love having extra bacon for my burger. I really do!
+INFO:I cannot believe adding extra bacon costs more money.
+WARNING:I think I deserve to have some extra bacon for free.
+ERROR:This is unacceptable! I want to speak to the manager now.

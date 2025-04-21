@@ -1,18 +1,16 @@
-// Harl.hpp
-
 #ifndef HARL_HPP
 #define HARL_HPP
 
 #include <string>
+#include <map>
 
 class Harl {
 private:
-    void debug();
-    void info();
-    void warning();
-    void error();
+    std::map<std::string, std::string> messages;
 
 public:
+    Harl();
+    void loadMessages(const std::string& filename);
     void complain(std::string level);
 };
 
