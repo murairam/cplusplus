@@ -6,7 +6,7 @@ CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
 # Source and object files
-SRC = main.cpp Zombie.cpp zombieHorde.cpp
+SRC = main.cpp Weapon.cpp HumanA.cpp HumanB.cpp
 OBJ = $(SRC:.cpp=.o)
 
 # Colors for output
