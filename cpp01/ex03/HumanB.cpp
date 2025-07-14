@@ -7,6 +7,9 @@
 - weapon starts as nullptr (no weapon)
 - setWeapon() sets the pointer
 - attack() checks if there’s a weapon before using it
+
+
+A pointer is used in `HumanB` because the weapon is optional and can be assigned or changed after the object is created.
 */
 
 // Constructor

@@ -57,3 +57,4 @@ It's important to handle input errors when using `std::cin`, as invalid input ca
 
 resources 
 https://learn.microsoft.com/en-us/cpp/cpp/namespaces-cpp?view=msvc-170
+https://github.com/mortennobel/cpp-cheatsheet

@@ -7,6 +7,11 @@
 
 Harl::Harl() {}
 
+void Harl::debug()    { std::cout << "[ DEBUG ]\n"   << messages["DEBUG"]   << std::endl; }
+void Harl::info()     { std::cout << "[ INFO ]\n"    << messages["INFO"]    << std::endl; }
+void Harl::warning()  { std::cout << "[ WARNING ]\n" << messages["WARNING"] << std::endl; }
+void Harl::error()    { std::cout << "[ ERROR ]\n"   << messages["ERROR"]   << std::endl; }
+
 void Harl::loadMessages(const std::string& filename) {
     std::ifstream file(filename.c_str());
     if (!file) {
@@ -26,10 +31,15 @@ void Harl::loadMessages(const std::string& filename) {
 }
 
 void Harl::complain(std::string level) {
-    if (messages.find(level) != messages.end()) {
-        std::cout << "[ " << level << " ]" << std::endl;
-        std::cout << messages[level] << std::endl;
-    } else {
-        std::cout << "[ " << level << " ] Message not found." << std::endl;
+    typedef void (Harl::*HarlFunc)();
+    std::string levels[] = {"DEBUG", "INFO", "WARNING", "ERROR"};
+    HarlFunc funcs[] = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
+
+    for (int i = 0; i < 4; ++i) {
+        if (levels[i] == level) {
+            (this->*funcs[i])();
+            return;
+        }
     }
+    std::cout << "[ " << level << " ] Message not found." << std::endl;
 }

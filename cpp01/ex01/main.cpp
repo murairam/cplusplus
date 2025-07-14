@@ -5,7 +5,7 @@
 Zombie* zombieHorde(int N, std::string name);
 
 int main() {
-    int count = 5;
+    int count = 100;
     Zombie* horde = zombieHorde(count, "mr zombie nr");
 
     if (!horde) {

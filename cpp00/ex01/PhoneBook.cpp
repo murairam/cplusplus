@@ -42,7 +42,7 @@ void PhoneBook::addContact() {
         std::getline(std::cin, input);
         input = trim(input); // Trim the input
     } while (!isValidInput(input));
-    newContact.setFirstName(input);
+        newContact.setFirstName(input);
 
     // Last Name
     do {
@@ -58,7 +58,7 @@ void PhoneBook::addContact() {
         std::getline(std::cin, input);
         input = trim(input); // Trim the input
     } while (!isValidInput(input));
-    newContact.setNickname(input);
+        newContact.setNickname(input);
 
     // Phone Number
     do {
@@ -66,7 +66,7 @@ void PhoneBook::addContact() {
         std::getline(std::cin, input);
         input = trim(input); // Trim the input
     } while (!isNumeric(input));
-    newContact.setPhoneNumber(input);
+        newContact.setPhoneNumber(input);
 
     // Darkest Secret
     do {
@@ -74,7 +74,7 @@ void PhoneBook::addContact() {
         std::getline(std::cin, input);
         input = trim(input); // Trim the input
     } while (!isValidInput(input));
-    newContact.setDarkestSecret(input);
+        newContact.setDarkestSecret(input);
 
     newContact.setDisplayIndex(contactIndex + 1); // logical position (1–8)
 

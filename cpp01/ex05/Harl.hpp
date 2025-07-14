@@ -7,7 +7,10 @@
 class Harl {
 private:
     std::map<std::string, std::string> messages;
-
+    void debug();
+    void info();
+    void warning();
+    void error();
 public:
     Harl();
     void loadMessages(const std::string& filename);
