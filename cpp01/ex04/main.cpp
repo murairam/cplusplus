@@ -14,14 +14,19 @@ int main(int argc, char** argv) {
     std::string s1 = argv[2];
     std::string s2 = argv[3];
 
-    if (s1.empty()) {
-        std::cerr << "Error: s1 cannot be empty." << std::endl;
+    if (s1.empty() || s2.empty()) {
+        std::cerr << "Error: s1 or s2 cannot be empty." << std::endl;
         return 1;
     }
 
     std::ifstream inputFile(filename.c_str());
     if (!inputFile) {
         std::cerr << "Error: Cannot open input file '" << filename << "'." << std::endl;
+        return 1;
+    }
+    if (inputFile.peek() == std::ifstream::traits_type::eof()) {
+        std::cerr << "Error: Input file is empty." << std::endl;
+        inputFile.close();
         return 1;
     }
 
