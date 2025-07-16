@@ -6,7 +6,7 @@ void randomChump(std::string name);
 int main() {
 
     std::cout << "--- Heap Zombie Test ---" << std::endl;
-    Zombie* zombie = newZombie("Hiro the Gutless");
+    Zombie* zombie = newZombie("zombuella");
     zombie->announce();
     delete zombie;
 

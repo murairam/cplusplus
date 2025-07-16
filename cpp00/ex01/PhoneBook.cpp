@@ -172,7 +172,7 @@ void PhoneBook::searchContact() {
     }
     
     if (foundIndex == -1) {
-        std::cout << "Invalid index! Please enter a number between 1 and 8." << std::endl;
+        std::cout << "Invalid index! Please enter a number between 1 and " << totalContacts << "." << std::endl;
         return;
     }
     
