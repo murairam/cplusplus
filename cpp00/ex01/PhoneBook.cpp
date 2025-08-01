@@ -160,7 +160,10 @@ void PhoneBook::searchContact() {
         return;
     }
 
-    int selectedIndex = atoi(input.c_str()); // What the user typed
+    int selectedIndex = 0;
+    for (size_t i = 0; i < input.length(); i++) {
+        selectedIndex = selectedIndex * 10 + (input[i] - '0');
+    }
 
     int foundIndex = -1;
 
