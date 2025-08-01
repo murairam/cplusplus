@@ -31,51 +31,81 @@ bool isNumeric(const std::string& str) {
     return true;
 }
 
+// Helper function for user-friendly input collection
+std::string getValidInput(const std::string& fieldName, bool isPhoneNumber = false) {
+    std::string input;
+    int attempts = 0;
+    const int maxAttempts = 5;
+    
+    do {
+        std::cout << fieldName << ": ";
+        std::getline(std::cin, input);
+        input = trim(input);
+        
+        if (isPhoneNumber) {
+            if (isNumeric(input)) {
+                return input;
+            }
+            attempts++;
+            if (attempts >= maxAttempts) {
+                std::cout << "❌ Too many invalid attempts. Returning to main menu." << std::endl;
+                return "";
+            }
+            if (input.empty()) {
+                std::cout << "⚠️  " << fieldName << " cannot be empty." << std::endl;
+                std::cout << "   Please enter digits only (e.g., 1234567890)" << std::endl;
+            } else {
+                std::cout << "⚠️  " << fieldName << " must contain only digits (0-9)." << std::endl;
+                std::cout << "   Example: 1234567890" << std::endl;
+            }
+        } else {
+            if (isValidInput(input)) {
+                return input;
+            }
+            attempts++;
+            if (attempts >= maxAttempts) {
+                std::cout << "❌ Too many invalid attempts. Returning to main menu." << std::endl;
+                return "";
+            }
+            std::cout << "⚠️  " << fieldName << " cannot be empty or contain only whitespace." << std::endl;
+            std::cout << "   Please enter a valid " << fieldName << "." << std::endl;
+        }
+        
+        if (attempts >= 3) {
+            std::cout << "💡 Tip: Make sure to enter some actual text, not just spaces or empty input." << std::endl;
+        }
+        
+    } while (true);
+}
+
 // Method to add a new contact
 void PhoneBook::addContact() {
     Contact newContact;
-    std::string input;
 
-    // First Name
-    do {
-        std::cout << "Enter First Name: ";
-        std::getline(std::cin, input);
-        input = trim(input); // Trim the input
-    } while (!isValidInput(input));
-        newContact.setFirstName(input);
+    std::cout << std::endl << "=== Adding New Contact ===" << std::endl;
+    std::cout << "Please fill in all the required fields:" << std::endl << std::endl;
+    
+    // Use helper function for cleaner input collection
+    std::string firstName = getValidInput("First Name");
+    if (firstName.empty()) return;
+    
+    std::string lastName = getValidInput("Last Name");
+    if (lastName.empty()) return;
+    
+    std::string nickname = getValidInput("Nickname");
+    if (nickname.empty()) return;
+    
+    std::string phoneNumber = getValidInput("Phone Number", true);
+    if (phoneNumber.empty()) return;
+    
+    std::string darkestSecret = getValidInput("Darkest Secret");
+    if (darkestSecret.empty()) return;
 
-    // Last Name
-    do {
-        std::cout << "Enter Last Name: ";
-        std::getline(std::cin, input);
-        input = trim(input); // Trim the input
-    } while (!isValidInput(input));
-    newContact.setLastName(input);
-
-    // Nickname
-    do {
-        std::cout << "Enter Nickname: ";
-        std::getline(std::cin, input);
-        input = trim(input); // Trim the input
-    } while (!isValidInput(input));
-        newContact.setNickname(input);
-
-    // Phone Number
-    do {
-        std::cout << "Enter Phone Number: ";
-        std::getline(std::cin, input);
-        input = trim(input); // Trim the input
-    } while (!isNumeric(input));
-        newContact.setPhoneNumber(input);
-
-    // Darkest Secret
-    do {
-        std::cout << "Enter Darkest Secret: ";
-        std::getline(std::cin, input);
-        input = trim(input); // Trim the input
-    } while (!isValidInput(input));
-        newContact.setDarkestSecret(input);
-
+    newContact.setFirstName(firstName);
+    newContact.setLastName(lastName);
+    newContact.setNickname(nickname);
+    newContact.setPhoneNumber(phoneNumber);
+    newContact.setDarkestSecret(darkestSecret);
     newContact.setDisplayIndex(contactIndex + 1); // logical position (1–8)
 
     // Store contact in a circular buffer
@@ -88,7 +118,9 @@ void PhoneBook::addContact() {
     if (totalContacts < 8)
         totalContacts++;
 
-    std::cout << "Contact added successfully!" << std::endl;
+    std::cout << std::endl << "✅ Contact '" << newContact.getFirstName() << " " << newContact.getLastName() 
+              << "' added successfully!" << std::endl;
+    std::cout << "   Total contacts: " << totalContacts << "/8" << std::endl << std::endl;
 }
 
 // Helper function to format text for display (max 10 characters)
@@ -130,60 +162,123 @@ void PhoneBook::displayContacts() {
         }
     }
 
-    // Now print
+    // Print table header
+    std::cout << "┌──────────┬──────────┬──────────┬──────────┐" << std::endl;
+    std::cout << "│" << std::setw(10) << "Index" << "│"
+              << std::setw(10) << "First Name" << "│"
+              << std::setw(10) << "Last Name" << "│"
+              << std::setw(10) << "Nickname" << "│" << std::endl;
+    std::cout << "├──────────┼──────────┼──────────┼──────────┤" << std::endl;
+
+    // Print contacts
     for (int i = 0; i < totalContacts; i++) {
         Contact c = sortedContacts[i];
-        std::cout << std::setw(10) << c.getDisplayIndex() << "|"
-                << std::setw(10) << formatText(c.getFirstName()) << "|"
-                << std::setw(10) << formatText(c.getLastName()) << "|"
-                << std::setw(10) << formatText(c.getNickname()) << std::endl;
+        std::cout << "│" << std::setw(10) << c.getDisplayIndex() << "│"
+                << std::setw(10) << formatText(c.getFirstName()) << "│"
+                << std::setw(10) << formatText(c.getLastName()) << "│"
+                << std::setw(10) << formatText(c.getNickname()) << "│" << std::endl;
     }
+    std::cout << "└──────────┴──────────┴──────────┴──────────┘" << std::endl;
 }
 
 
 void PhoneBook::searchContact() {
     if (totalContacts == 0) {
-        std::cout << "No contacts to search!" << std::endl;
+        std::cout << std::endl << "📋 Your phonebook is empty!" << std::endl;
+        std::cout << "   Use the ADD command to add some contacts first." << std::endl << std::endl;
         return;
     }
 
+    std::cout << std::endl << "=== Contact List ===" << std::endl;
     displayContacts();  // Show the list first
-
-    std::cout << "Enter index to view details (1 - " << totalContacts << "): ";
+    std::cout << std::endl;
 
     std::string input;
-    std::getline(std::cin, input);  // Read the entire input line
+    int attempts = 0;
+    const int maxAttempts = 5;
+    
+    do {
+        std::cout << "Enter contact index (1-" << totalContacts << ") or 0 to cancel: ";
+        std::getline(std::cin, input);
 
-    // Validate input: Check if input is empty or contains non-numeric characters
-    if (input.empty() || input.find_first_not_of("0123456789") != std::string::npos) {
-        std::cout << "Invalid input! Please enter a number between 1 and " << totalContacts << "." << std::endl;
-        return;
-    }
-
-    int selectedIndex = 0;
-    for (size_t i = 0; i < input.length(); i++) {
-        selectedIndex = selectedIndex * 10 + (input[i] - '0');
-    }
-
-    int foundIndex = -1;
-
-    for (int i = 0; i < totalContacts; i++) {
-        if (contacts[i].getDisplayIndex() == selectedIndex) {
-            foundIndex = i;
-            break;
+        // Allow user to cancel
+        if (input == "0") {
+            std::cout << "Search cancelled." << std::endl << std::endl;
+            return;
         }
-    }
-    
-    if (foundIndex == -1) {
-        std::cout << "Invalid index! Please enter a number between 1 and " << totalContacts << "." << std::endl;
+
+        // Validate input: Check if input is empty
+        if (input.empty()) {
+            attempts++;
+            if (attempts >= maxAttempts) {
+                std::cout << "❌ Too many invalid attempts. Returning to main menu." << std::endl;
+                return;
+            }
+            std::cout << "⚠️  Index cannot be empty." << std::endl;
+            if (attempts < 3) {
+                std::cout << "   Please enter a number between 1 and " << totalContacts << ", or 0 to cancel." << std::endl;
+            } else {
+                std::cout << "💡 Tip: Type a number like '1', '2', etc., or '0' to go back." << std::endl;
+            }
+            continue;
+        }
+        
+        // Check for non-numeric characters
+        if (input.find_first_not_of("0123456789") != std::string::npos) {
+            attempts++;
+            if (attempts >= maxAttempts) {
+                std::cout << "❌ Too many invalid attempts. Returning to main menu." << std::endl;
+                return;
+            }
+            std::cout << "⚠️  Index must contain only digits." << std::endl;
+            if (attempts < 3) {
+                std::cout << "   Please enter a valid number between 1 and " << totalContacts << ", or 0 to cancel." << std::endl;
+            } else {
+                std::cout << "💡 Tip: Use only numbers (0-9). For example: 1, 2, 3..." << std::endl;
+            }
+            continue;
+        }
+
+        // Convert to integer
+        int selectedIndex = 0;
+        for (size_t i = 0; i < input.length(); i++) {
+            selectedIndex = selectedIndex * 10 + (input[i] - '0');
+        }
+
+        // Find the contact
+        int foundIndex = -1;
+        for (int i = 0; i < totalContacts; i++) {
+            if (contacts[i].getDisplayIndex() == selectedIndex) {
+                foundIndex = i;
+                break;
+            }
+        }
+        
+        if (foundIndex == -1) {
+            attempts++;
+            if (attempts >= maxAttempts) {
+                std::cout << "❌ Too many invalid attempts. Returning to main menu." << std::endl;
+                return;
+            }
+            std::cout << "⚠️  Contact with index " << selectedIndex << " not found." << std::endl;
+            if (attempts < 3) {
+                std::cout << "   Please enter a valid index from the list above (1-" << totalContacts << ") or 0 to cancel." << std::endl;
+            } else {
+                std::cout << "💡 Tip: Look at the table above and choose one of the Index numbers shown." << std::endl;
+            }
+            continue;
+        }
+        
+        // Display details with better formatting
+        Contact &c = contacts[foundIndex];
+        std::cout << std::endl << "=== Contact Details ===" << std::endl;
+        std::cout << "First Name     : " << c.getFirstName() << std::endl;
+        std::cout << "Last Name      : " << c.getLastName() << std::endl;
+        std::cout << "Nickname       : " << c.getNickname() << std::endl;
+        std::cout << "Phone Number   : " << c.getPhoneNumber() << std::endl;
+        std::cout << "Darkest Secret : " << c.getDarkestSecret() << std::endl;
+        std::cout << "======================" << std::endl << std::endl;
         return;
-    }
-    
-    // Display details
-    Contact &c = contacts[foundIndex];
-    std::cout << "First Name: " << c.getFirstName() << std::endl;
-    std::cout << "Last Name: " << c.getLastName() << std::endl;
-    std::cout << "Nickname: " << c.getNickname() << std::endl;
-    std::cout << "Phone Number: " << c.getPhoneNumber() << std::endl;
-    std::cout << "Darkest Secret: " << c.getDarkestSecret() << std::endl;
+        
+    } while (true);
 }
