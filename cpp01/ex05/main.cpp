@@ -1,21 +1,19 @@
 // main.cpp
 
 #include "Harl.hpp"
-#include <iostream>
 
-int main(int argc, char** argv) {
-    if (argc != 2) {
-        std::cerr << "Usage: ./harl <complaints_file>" << std::endl;
-        return 1;
-    }
 
-    Harl harl;
-    harl.loadMessages(argv[1]);
+int main() {
+	Harl	harl;
 
-    // Test all levels
-    harl.complain("DEBUG");
-    harl.complain("INFO");
-    harl.complain("WARNING");
-    harl.complain("ERROR");
-    return 0;
+	std::cout << "Printing all harl could say." << std::endl << std::endl;
+	harl.complain("ERROR");
+	std::cout << std::endl;
+	harl.complain("WARNING");
+	std::cout << std::endl;
+	harl.complain("INFO");
+	std::cout << std::endl;
+	harl.complain("DEBUG");
+	std::cout << std::endl;
+	return (0);
 }

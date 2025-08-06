@@ -1,6 +1,10 @@
 // Harl.cpp
 
 #include "Harl.hpp"
+#include <iostream>
+#include <fstream>
+#include <sstream>
+
 
 Harl::Harl() {}
 
@@ -31,4 +35,30 @@ void Harl::complain(std::string level) {
 		if (complains[i] == level)
 			(this->*functionPTRS[i])();
 	}
+}
+
+void Harl::harlFilter(std::string level) {
+    std::string levels[] = {"DEBUG", "INFO", "WARNING", "ERROR"};
+    int code = -1;
+
+    for (int i = 0; i < 4; i++) {
+        if (level == levels[i]) {
+            code = i;
+            break;
+        }
+    }
+
+    switch (code) {
+        case 0: 
+            complain("DEBUG");
+        case 1: // INFO
+            complain("INFO");
+        case 2: 
+            complain("WARNING");
+        case 3: 
+            complain("ERROR");
+            break;
+        default:
+            std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
+    }
 }

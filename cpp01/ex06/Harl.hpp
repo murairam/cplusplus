@@ -3,18 +3,17 @@
 
 #include <string>
 #include <map>
-#include <iostream>
-#include <cstdlib> // for exit
 
 class Harl {
 private:
-    void debug( void );
-    void info( void );
-    void warning( void );
-    void error( void );
+    void debug();
+    void info();
+    void warning();
+    void error();
 public:
     Harl();
     ~Harl();
+    void harlFilter(std::string level);
     void complain(std::string level);
 };
 

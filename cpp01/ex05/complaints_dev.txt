@@ -1,4 +1,0 @@
-DEBUG:I pushed a quick fix directly to main. YOLO!
-INFO:The CI is failing because someone renamed the Docker container to “final_final_v2”.
-WARNING:We’ve entered dependency hell. I need to rollback npm to 2016.
-ERROR:I force-pushed to production and now the app is down. Again.
