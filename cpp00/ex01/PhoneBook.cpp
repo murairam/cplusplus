@@ -39,7 +39,11 @@ std::string getValidInput(const std::string& fieldName, bool isPhoneNumber = fal
     
     do {
         std::cout << fieldName << ": ";
-        std::getline(std::cin, input);
+        if (!std::getline(std::cin, input)) {
+            // EOF reached
+            std::cout << std::endl << "EOF detected. Returning to main menu." << std::endl;
+            return "";
+        }
         input = trim(input);
         
         if (isPhoneNumber) {
@@ -135,10 +139,7 @@ std::string formatText(std::string text) {
     if (text.length() > 10)
         return text.substr(0, 9) + ".";
 
-    // Pad with spaces on the left if too short
-    while (text.length() < 10)
-        text = " " + text;
-
+    // Return as-is - setw() will handle the right-alignment
     return text;
 }
 
@@ -199,7 +200,11 @@ void PhoneBook::searchContact() {
     
     do {
         std::cout << "Enter contact index (1-" << totalContacts << ") or 0 to cancel: ";
-        std::getline(std::cin, input);
+        if (!std::getline(std::cin, input)) {
+            // EOF reached
+            std::cout << std::endl << "EOF detected. Returning to main menu." << std::endl;
+            return;
+        }
 
         // Allow user to cancel
         if (input == "0") {

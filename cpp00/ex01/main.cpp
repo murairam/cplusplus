@@ -6,7 +6,7 @@
 /*   By: mmiilpal <mmiilpal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 14:13:21 by mmiilpal          #+#    #+#             */
-/*   Updated: 2025/08/05 19:14:22 by mmiilpal         ###   ########.fr       */
+/*   Updated: 2025/08/07 17:32:58 by mmiilpal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,11 @@ int main() {
 
     while (true) {
         std::cout << "PhoneBook> ";
-        std::getline(std::cin, command);
+        if (!std::getline(std::cin, command)) {
+            // EOF reached (Ctrl+D or input stream ended)
+            std::cout << std::endl << "EOF detected. Goodbye!" << std::endl;
+            break;
+        }
 
         // Commands must be exactly "ADD", "SEARCH", or "EXIT" (uppercase)
         if (command == "ADD") {
