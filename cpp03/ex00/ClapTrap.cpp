@@ -38,7 +38,7 @@ ClapTrap& ClapTrap::operator=(const ClapTrap& other)
 void    ClapTrap::attack(const std::string& target)
 {
     if (_hitPoints <= 0){
-        std::cout << "Claptrap " << name << " is destroyed and cannot attack!" << std::endl;
+        std::cout << "ClapTrap " << name << " is destroyed and cannot attack!" << std::endl;
         return;
     }
     if (_energyPoints <= 0){
@@ -54,15 +54,19 @@ void	ClapTrap::takeDamage(unsigned int amount)
 		std::cout << "ClapTrap " << name << " is already destroyed and can't take more damage!" << std::endl;
 		return;
 	}
-    _hitPoints -= amount;
-    if (_hitPoints < 0)
+    
+    // Fix: Handle unsigned int underflow properly
+    if (amount >= _hitPoints)
         _hitPoints = 0;
+    else
+        _hitPoints -= amount;
+        
     std::cout << "ClapTrap " << name << " took " << amount << " damage. Remaining HP: " << _hitPoints << std::endl;
 }
 void	ClapTrap::beRepaired(unsigned int amount)
 {
     if (_hitPoints <= 0){
-        std::cout << "ClapTrap " << name << " is destroyed and cannot attack!" << std::endl;
+        std::cout << "ClapTrap " << name << " is destroyed and cannot repair!" << std::endl;
         return;
     }
     if (_energyPoints <= 0){
