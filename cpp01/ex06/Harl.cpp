@@ -27,38 +27,57 @@ void Harl::error()    {
 
 
 void Harl::complain(std::string level) {
-	void    (Harl::*functionPTRS[])( void ) = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
-	std::string complains[] = {"DEBUG", "INFO", "WARNING", "ERROR"};
-
-	for (int i = 0; i < 4; i++)
-	{
-		if (complains[i] == level)
-			(this->*functionPTRS[i])();
-	}
+    // Create a mapping structure - shows string-to-function matching
+    struct complaintMap {
+        std::string level;
+        void (Harl::*function)(void);
+    };
+    
+    complaintMap complaints[] = {
+        {"DEBUG", &Harl::debug},
+        {"INFO", &Harl::info},
+        {"WARNING", &Harl::warning},
+        {"ERROR", &Harl::error}
+    };
+    
+    // Find and execute the matching function
+    for (int i = 0; i < 4; i++) {
+        if (complaints[i].level == level) {
+            (this->*complaints[i].function)();
+            return;
+        }
+    }
 }
 
+// Option 2: More explicit with comments (recommended improvement)
 void Harl::harlFilter(std::string level) {
     std::string levels[] = {"DEBUG", "INFO", "WARNING", "ERROR"};
-    int code = -1;
+    int levelCode = -1;
 
+    // Find the level index
     for (int i = 0; i < 4; i++) {
         if (level == levels[i]) {
-            code = i;
+            levelCode = i;
             break;
         }
     }
 
-    switch (code) {
-        case 0: 
+    // Filter: show this level and all levels below it
+    switch (levelCode) {
+        case 0:  // DEBUG level - show everything
             complain("DEBUG");
-        case 1: // INFO
+            // Fall through intentionally
+        case 1:  // INFO level - show INFO, WARNING, ERROR
             complain("INFO");
-        case 2: 
+            // Fall through intentionally  
+        case 2:  // WARNING level - show WARNING, ERROR
             complain("WARNING");
-        case 3: 
+            // Fall through intentionally
+        case 3:  // ERROR level - show only ERROR
             complain("ERROR");
             break;
-        default:
+        default: // Invalid level
             std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
+            break;
     }
 }

@@ -1,55 +1,26 @@
-// main.cpp
-
-#include <iostream>
-#include <fstream>
-#include <string>
+#include "FileReplacer.hpp"
 
 int main(int argc, char** argv) {
+    // Check argument count
     if (argc != 4) {
         std::cerr << "Usage: ./replace <filename> <s1> <s2>" << std::endl;
+        std::cerr << "  filename: input file to process" << std::endl;
+        std::cerr << "  s1: string to search for" << std::endl;
+        std::cerr << "  s2: string to replace s1 with" << std::endl;
         return 1;
     }
 
+    // Extract arguments
     std::string filename = argv[1];
     std::string s1 = argv[2];
     std::string s2 = argv[3];
 
-    if (s1.empty() || s2.empty()) {
-        std::cerr << "Error: s1 or s2 cannot be empty." << std::endl;
-        return 1;
+    // Create FileReplacer object and perform replacement
+    FileReplacer replacer(filename, s1, s2);
+    
+    if (replacer.replace()) {
+        return 0;  // Success
+    } else {
+        return 1;  // Failure
     }
-
-    std::ifstream inputFile(filename.c_str());
-    if (!inputFile) {
-        std::cerr << "Error: Cannot open input file '" << filename << "'." << std::endl;
-        return 1;
-    }
-    if (inputFile.peek() == std::ifstream::traits_type::eof()) {
-        std::cerr << "Error: Input file is empty." << std::endl;
-        inputFile.close();
-        return 1;
-    }
-
-    std::string outputFilename = filename + ".replace";
-    std::ofstream outputFile(outputFilename.c_str());
-    if (!outputFile) {
-        std::cerr << "Error: Cannot create output file '" << outputFilename << "'." << std::endl;
-        return 1;
-    }
-
-    std::string line;
-    while (std::getline(inputFile, line)) {
-        size_t pos = 0;
-        while ((pos = line.find(s1, pos)) != std::string::npos) {
-            line.erase(pos, s1.length());
-            line.insert(pos, s2);
-            pos += s2.length();
-        }
-        outputFile << line << std::endl;
-    }
-
-    inputFile.close();
-    outputFile.close();
-
-    return 0;
 }

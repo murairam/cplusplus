@@ -23,12 +23,24 @@ void Harl::error()    {
 
 
 void Harl::complain(std::string level) {
-	void    (Harl::*functionPTRS[])( void ) = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
-	std::string complains[] = {"DEBUG", "INFO", "WARNING", "ERROR"};
-
-	for (int i = 0; i < 4; i++)
-	{
-		if (complains[i] == level)
-			(this->*functionPTRS[i])();
-	}
+    // Create a mapping structure - shows string-to-function matching
+    struct complaintMap {
+        std::string level;
+        void (Harl::*function)(void);
+    };
+    
+    complaintMap complaints[] = {
+        {"DEBUG", &Harl::debug},
+        {"INFO", &Harl::info},
+        {"WARNING", &Harl::warning},
+        {"ERROR", &Harl::error}
+    };
+    
+    // Find and execute the matching function
+    for (int i = 0; i < 4; i++) {
+        if (complaints[i].level == level) {
+            (this->*complaints[i].function)();
+            return;
+        }
+    }
 }
