@@ -1,19 +1,14 @@
-# Project name
 NAME =  unnecessaryviolence
 
-# Compiler and flags
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
-# Source and object files
 SRC = main.cpp Weapon.cpp HumanA.cpp HumanB.cpp
 OBJ = $(SRC:.cpp=.o)
 
-# Colors for output
 BBlue=\033[1;34m 
 RESET = \033[00m
 
-# Compilation rules
 all: $(NAME)
 
 $(NAME): $(OBJ)

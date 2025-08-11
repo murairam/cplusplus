@@ -24,3 +24,13 @@ int main(int argc, char** argv) {
         return 1;  // Failure
     }
 }
+
+/* Einstein's theory of relativity revolutionized physics.
+The theory consists of special relativity and general relativity.
+Special relativity explains motion at high speeds.
+General relativity explains gravity as a curvature of spacetime.
+Relativity introduced the idea that time is not absolute.
+According to relativity, observers moving at different speeds measure time differently.
+Relativity also showed that mass and energy are equivalent, as described by E=mc^2.
+The predictions of general relativity have been confirmed by many experiments.
+Relativity remains one of the pillars of modern physics. */

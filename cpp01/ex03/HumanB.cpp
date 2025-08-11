@@ -4,7 +4,7 @@
 #include "HumanB.hpp"
 
 /* What’s happening:
-- weapon starts as nullptr (no weapon)
+- weapon starts as null (no weapon)
 - setWeapon() sets the pointer
 - attack() checks if there’s a weapon before using it
 

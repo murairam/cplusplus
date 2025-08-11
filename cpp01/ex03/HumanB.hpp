@@ -7,14 +7,14 @@
 #include "Weapon.hpp"
 
 class HumanB {
-private:
-    std::string name;
-    Weapon* weapon;  // may not have a weapon (pointer)
+    private:
+        std::string name;
+        Weapon* weapon;  // may not have a weapon (pointer)
 
-public:
-    HumanB(std::string name);
-    void setWeapon(Weapon& weapon);
-    void attack() const;
+    public:
+        HumanB(std::string name);
+        void setWeapon(Weapon& weapon);
+        void attack() const;
 };
 
 #endif

@@ -5,12 +5,12 @@
 Zombie* zombieHorde(int N, std::string name);
 
 int main() {
-    int count = 100;
+    int count = 10;
     if (count >= 10000) {
         std::cerr << "Error: Count must be less than 10000." << std::endl;
         return 1;
     }
-    Zombie* horde = zombieHorde(count, "croisson");
+    Zombie* horde = zombieHorde(count, "walker");
 
     if (!horde) {
         std::cout << "Failed to create horde." << std::endl;

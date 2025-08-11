@@ -67,13 +67,13 @@ void Harl::harlFilter(std::string level) {
         case 0:  // DEBUG level - show everything
             complain("DEBUG");
             // Fall through intentionally
-        case 1:  // INFO level - show INFO, WARNING, ERROR
+        case 1:
             complain("INFO");
             // Fall through intentionally  
-        case 2:  // WARNING level - show WARNING, ERROR
+        case 2:
             complain("WARNING");
             // Fall through intentionally
-        case 3:  // ERROR level - show only ERROR
+        case 3:
             complain("ERROR");
             break;
         default: // Invalid level

@@ -7,13 +7,13 @@
 #include "Weapon.hpp"
 
 class HumanA {
-private:
-    std::string name;
-    Weapon& weapon;  // always has a weapon (by reference)
+    private:
+        std::string name;
+        Weapon& weapon;  // always has a weapon (by reference)
 
-public:
-    HumanA(std::string name, Weapon& weapon);  // constructor
-    void attack() const;
+    public:
+        HumanA(std::string name, Weapon& weapon);  // constructor
+        void attack() const;
 };
 
 #endif
