@@ -73,25 +73,41 @@ bool Fixed::operator!=(const Fixed& other) const {
     return this->_rawBits != other._rawBits;
 }
 
-// Arithmetic operators
+// Addition: Simple addition of raw bits
 Fixed Fixed::operator+(const Fixed& other) const {
-    return Fixed(this->toFloat() + other.toFloat());
+    Fixed result;
+    result.setRawBits(this->_rawBits + other._rawBits);
+    return result;
 }
 
+// Subtraction: Simple subtraction of raw bits
 Fixed Fixed::operator-(const Fixed& other) const {
-    return Fixed(this->toFloat() - other.toFloat());
+    Fixed result;
+    result.setRawBits(this->_rawBits - other._rawBits);
+    return result;
 }
 
+// Multiplication: More complex due to fixed-point math
 Fixed Fixed::operator*(const Fixed& other) const {
-    return Fixed(this->toFloat() * other.toFloat());
+    Fixed result;
+    // When multiplying two fixed-point numbers, we get double the fractional bits
+    // So we need to shift right by _fractionalBits to normalize
+    long long temp = (long long)this->_rawBits * other._rawBits;
+    result.setRawBits((int)(temp >> this->_fractionalBits));
+    return result;
 }
 
+// Division: Also complex due to fixed-point math
 Fixed Fixed::operator/(const Fixed& other) const {
-    if (other.toFloat() == 0) {
+    if (other._rawBits == 0) {
         std::cerr << "Error: Division by zero" << std::endl;
         return Fixed();
     }
-    return Fixed(this->toFloat() / other.toFloat());
+    Fixed result;
+    // When dividing, we need to shift left by _fractionalBits to maintain precision
+    long long temp = ((long long)this->_rawBits << this->_fractionalBits) / other._rawBits;
+    result.setRawBits((int)temp);
+    return result;
 }
 
 // Increment and decrement

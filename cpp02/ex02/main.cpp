@@ -1,7 +1,22 @@
 #include "Fixed.hpp"
 #include <iostream>
 
-int main() {
+int main( void ) {
+	Fixed a;
+	Fixed const b( Fixed( 5.05f ) * Fixed( 2 ) );
+
+	std::cout << a << std::endl;
+	std::cout << ++a << std::endl;
+	std::cout << a << std::endl;
+	std::cout << a++ << std::endl;
+	std::cout << a << std::endl;
+	std::cout << b << std::endl;
+	std::cout << Fixed::max( a, b ) << std::endl;
+	
+	return 0;
+}
+
+/* int main() {
 	std::cout << "\n--- Constructors ---" << std::endl;
 
 	Fixed a(42);             // "Answer to the Ultimate Question"
@@ -97,5 +112,16 @@ int main() {
 	std::cout << "max(cm1, cm2): " << Fixed::max(cm1, cm2) << std::endl;
 
 	std::cout << "\n--- End of test ---" << std::endl;
+
+	Fixed aa(3.14159f);
+	Fixed bb(2.71828f);
+
+	Fixed old_mult = Fixed(aa.toFloat() * bb.toFloat());  // Old way
+	Fixed new_mult = aa * bb;  // New optimized way
+
+	std::cout << "Old multiplication: " << old_mult << std::endl;
+	std::cout << "New multiplication: " << new_mult << std::endl;
+	std::cout << "Difference: " << (new_mult - old_mult).toFloat() << std::endl;
 	return 0;
-}
+} */
+
