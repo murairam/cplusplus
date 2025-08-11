@@ -12,7 +12,7 @@ int main( void ) {
 	std::cout << a << std::endl;
 	std::cout << b << std::endl;
 	std::cout << Fixed::max( a, b ) << std::endl;
-	
+
 	return 0;
 }
 
@@ -122,6 +122,6 @@ int main( void ) {
 	std::cout << "Old multiplication: " << old_mult << std::endl;
 	std::cout << "New multiplication: " << new_mult << std::endl;
 	std::cout << "Difference: " << (new_mult - old_mult).toFloat() << std::endl;
-	return 0;
-} */
+	return 0; 
+}*/
 

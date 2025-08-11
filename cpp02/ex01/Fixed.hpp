@@ -5,8 +5,8 @@
 
 class Fixed {
 private:
-    int _rawBits;
-    static const int _fractionalBits = 8;
+    int                 _rawBits;
+    static const int    _fractionalBits = 8;
 
 public:
     Fixed();                            // Default constructor
@@ -16,11 +16,11 @@ public:
     Fixed& operator=(const Fixed& other); // Assignment operator
     ~Fixed();                           // Destructor
 
-    int getRawBits() const;
-    void setRawBits(int const raw);
+    int     getRawBits() const;
+    void    setRawBits(int const raw);
 
-    float toFloat() const;             // New
-    int toInt() const;                 // New
+    float   toFloat() const;             // New
+    int     toInt() const;                 // New
 };
 
 std::ostream& operator<<(std::ostream& out, const Fixed& fixed); // << overload

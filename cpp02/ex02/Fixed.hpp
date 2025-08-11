@@ -16,28 +16,28 @@ public:
     Fixed &operator=(const Fixed& other); // Assignment operator
     ~Fixed();                           // Destructor
 
-    int getRawBits() const;
-    void setRawBits(int const raw);
+    int     getRawBits() const;
+    void    setRawBits(int const raw);
 
-    float toFloat() const;
-    int toInt() const;
+    float   toFloat() const;
+    int     toInt() const;
 
-    bool operator>(const Fixed &other) const;
-    bool operator<(const Fixed &other) const;
-    bool operator>=(const Fixed &other) const;
-    bool operator<=(const Fixed &other) const;
-    bool operator==(const Fixed &other) const;
-    bool operator!=(const Fixed &other) const;
+    bool    operator>(const Fixed &other) const;
+    bool    operator<(const Fixed &other) const;
+    bool    operator>=(const Fixed &other) const;
+    bool    operator<=(const Fixed &other) const;
+    bool    operator==(const Fixed &other) const;
+    bool    operator!=(const Fixed &other) const;
 
-    Fixed operator+(const Fixed &other) const;
-    Fixed operator-(const Fixed &other) const;
-    Fixed operator*(const Fixed &other) const;
-    Fixed operator/(const Fixed &other) const;
+    Fixed   operator+(const Fixed &other) const;
+    Fixed   operator-(const Fixed &other) const;
+    Fixed   operator*(const Fixed &other) const;
+    Fixed   operator/(const Fixed &other) const;
 
-    Fixed& operator++();       // pre-increment
-    Fixed operator++(int);     // post-increment
-    Fixed& operator--();       // pre-decrement
-    Fixed operator--(int);     // post-decrement
+    Fixed&  operator++();       // pre-increment
+    Fixed   operator++(int);     // post-increment
+    Fixed&  operator--();       // pre-decrement
+    Fixed   operator--(int);     // post-decrement
 
     static Fixed& min(Fixed& a, Fixed& b);
     static const Fixed& min(const Fixed& a, const Fixed& b);

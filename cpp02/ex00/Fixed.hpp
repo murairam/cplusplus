@@ -11,8 +11,8 @@ class Fixed{
         Fixed &operator=(const Fixed &other); // Assignment operator
         ~Fixed();
 
-        int getRawBits(void) const; // Getter for the raw fixed-point value
-        void setRawBits(int const raw); // Setter for the raw fixed-point value
+        int     getRawBits(void) const; // Getter for the raw fixed-point value
+        void    setRawBits(int const raw); // Setter for the raw fixed-point value
 };
 
 # endif
