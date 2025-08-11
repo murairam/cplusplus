@@ -54,8 +54,7 @@ void	ClapTrap::takeDamage(unsigned int amount)
 		std::cout << "ClapTrap " << name << " is already destroyed and can't take more damage!" << std::endl;
 		return;
 	}
-    
-    // Fix: Handle unsigned int underflow properly
+    // Handle unsigned int underflow properly
     if (amount >= _hitPoints)
         _hitPoints = 0;
     else
