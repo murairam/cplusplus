@@ -3,17 +3,17 @@
 ScavTrap::ScavTrap() : ClapTrap()
 {
     std::cout << "ScavTrap default constructed!" << std::endl;
-    _hitPoints = _defaultHitPoints;
-    _energyPoints = _defaultEnergyPoints;
-    _attackDamage = _defaultAttackDamage; 
+    this->_hitPoints = _defaultHitPoints;
+    this->_energyPoints = _defaultEnergyPoints;
+    this->_attackDamage = _defaultAttackDamage; 
 }
 
 ScavTrap::ScavTrap(std::string name) : ClapTrap(name)
 {
     std::cout << "ScavTrap " << name << " constructed!" << std::endl;
-    _hitPoints = _defaultHitPoints;
-    _energyPoints = _defaultEnergyPoints;
-    _attackDamage = _defaultAttackDamage;
+    this->_hitPoints = _defaultHitPoints;
+    this->_energyPoints = _defaultEnergyPoints;
+    this->_attackDamage = _defaultAttackDamage;
 }
 
 ScavTrap::ScavTrap(const ScavTrap &other) : ClapTrap(other)

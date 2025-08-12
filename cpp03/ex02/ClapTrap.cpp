@@ -57,9 +57,9 @@ void	ClapTrap::takeDamage(unsigned int amount)
     
     // Fix: Handle unsigned int underflow properly
     if (amount >= _hitPoints)
-        _hitPoints = 0;
+        this->_hitPoints = 0;
     else
-        _hitPoints -= amount;
+        this->_hitPoints -= amount;
         
     std::cout << "ClapTrap " << _name << " took " << amount << " damage. Remaining HP: " << _hitPoints << std::endl;
 }
