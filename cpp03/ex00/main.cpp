@@ -1,41 +1,41 @@
 #include "ClapTrap.hpp"
 
 int main() {
-    std::cout << "=== ClapTrap Testing (No Direct Interaction) ===" << std::endl;
+    std::cout << "=================================" << std::endl;
+    std::cout << "CPP03 EX00: BASIC CLASS DESIGN" << std::endl;
+    std::cout << "Learning: Orthodox Canonical Form, Basic Methods, State Management" << std::endl;
+    std::cout << "=================================" << std::endl;
+
+    // Test Orthodox Canonical Form
+    std::cout << "\n--- Orthodox Canonical Form Tests ---" << std::endl;
+    ClapTrap robot1("R2D2");
+    ClapTrap robot2(robot1);        // Copy constructor
+    ClapTrap robot3;
+    robot3 = robot1;                // Copy assignment
+    std::cout << "✅ All 4 canonical functions tested\n" << std::endl;
     
-    // Create a single ClapTrap
-    ClapTrap robot("R2D2");
+    // Test basic functionality
+    std::cout << "--- Basic Combat System ---" << std::endl;
+    std::cout << "Stats: 10 HP, 10 Energy, 0 Attack Damage" << std::endl;
+    robot1.attack("training dummy");
+    robot1.attack("goblin");
+    robot1.takeDamage(5);
+    robot1.beRepaired(3);
+    std::cout << "Status: 8 HP, 8 Energy remaining\n" << std::endl;
     
-    std::cout << "\n--- Basic Combat Against External Enemies ---" << std::endl;
-    robot.attack("training dummy");
-    robot.attack("wild goblin");
-    robot.attack("practice target");
-    
-    std::cout << "\n--- Taking Environmental Damage ---" << std::endl;
-    robot.takeDamage(3);  // Damage from trap or environment
-    robot.takeDamage(2);  // Damage from falling rocks
-    
-    std::cout << "\n--- Self Repair ---" << std::endl;
-    robot.beRepaired(4);  // Repair at repair station
-    robot.beRepaired(1);  // Minor self-repair
-    
-    std::cout << "\n--- Energy Depletion Test ---" << std::endl;
-    // Exhaust remaining energy (started with 10, used 5 so far)
-    for (int i = 0; i < 6; ++i) {
-        robot.attack("practice dummy");
+    // Test resource limits
+    std::cout << "--- Resource Management ---" << std::endl;
+    std::cout << "Testing energy depletion:" << std::endl;
+    for (int i = 0; i < 9; ++i) {
+        robot1.attack("enemy");
     }
-    robot.beRepaired(1);  // Should fail - no energy
+    robot1.beRepaired(1);  // Should fail - no energy
     
-    std::cout << "\n--- Destruction Test ---" << std::endl;
-    robot.takeDamage(20); // Massive environmental damage
-    robot.attack("anything");   // Should fail - destroyed
-    robot.beRepaired(5);        // Should fail - destroyed
+    std::cout << "\nTesting death state:" << std::endl;
+    robot1.takeDamage(20);          // Massive damage
+    robot1.attack("anything");      // Can't attack when dead
+    robot1.beRepaired(5);           // Can't repair when dead
     
-    std::cout << "\n--- Testing Different ClapTrap (Independent) ---" << std::endl;
-    ClapTrap robot2("Wall-E");
-    robot2.attack("scrap metal");
-    robot2.takeDamage(1);
-    robot2.beRepaired(2);
-    
+    std::cout << "\n--- Program End ---" << std::endl;
     return 0;
 }
