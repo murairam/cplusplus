@@ -1,5 +1,5 @@
 #ifndef CLAPTRAP_HPP
-# define CLAPTRAP_HPP
+#define CLAPTRAP_HPP
 
 #include <iostream>
 
@@ -15,7 +15,7 @@ class ClapTrap{
 		ClapTrap(std::string name);
 		ClapTrap(const ClapTrap& other); // copy constructor
 		ClapTrap& operator=(const ClapTrap& other); // copy assignment
-		virtual~ClapTrap(); // destructor
+		virtual ~ClapTrap(); // destructor
 
 		void	attack(const std::string& target);
 		void	takeDamage(unsigned int amount);

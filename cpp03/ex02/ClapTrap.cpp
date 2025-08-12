@@ -55,7 +55,6 @@ void	ClapTrap::takeDamage(unsigned int amount)
 		return;
 	}
     
-    // Fix: Handle unsigned int underflow properly
     if (amount >= _hitPoints)
         this->_hitPoints = 0;
     else
