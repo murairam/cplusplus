@@ -4,12 +4,7 @@
 #include "ClapTrap.hpp"
 
 class FragTrap : public virtual ClapTrap
-{
-    protected:
-        static const unsigned int _defaultHitPoints = 100;
-        static const unsigned int _defaultEnergyPoints = 100;
-        static const unsigned int _defaultAttackDamage = 30;
-        
+{        
     public:
         FragTrap();
         FragTrap(std::string name);

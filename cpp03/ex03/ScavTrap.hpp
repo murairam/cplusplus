@@ -5,11 +5,6 @@
 
 class ScavTrap : public virtual ClapTrap
 {
-    protected:
-        static const unsigned int _defaultHitPoints = 100;
-        static const unsigned int _defaultEnergyPoints = 50;
-        static const unsigned int _defaultAttackDamage = 20;
-        
     public:
         ScavTrap();
         ScavTrap(std::string name);

@@ -2,16 +2,16 @@
 
 FragTrap::FragTrap() : ClapTrap() {
     std::cout << "FragTrap default constructed!" << std::endl;
-    this->_hitPoints = _defaultHitPoints;
-    this->_energyPoints = _defaultEnergyPoints;
-    this->_attackDamage = _defaultAttackDamage; 
+    this->_hitPoints = 100;
+    this->_energyPoints = 100;
+    this->_attackDamage = 30; 
 }
 
 FragTrap::FragTrap(std::string name) : ClapTrap(name) {
 	std::cout << "FragTrap " << name << " constructed!" << std::endl;
-	this->_hitPoints = _defaultHitPoints;
-	this->_energyPoints = _defaultEnergyPoints;
-	this->_attackDamage = _defaultAttackDamage;
+	this->_hitPoints = 100;
+	this->_energyPoints = 100;
+	this->_attackDamage = 30;
 }
 
 FragTrap::FragTrap(const FragTrap& other) : ClapTrap(other) {
