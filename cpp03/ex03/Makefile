@@ -6,11 +6,11 @@
 #    By: mmiilpal <mmiilpal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/15 16:28:01 by mmiilpal          #+#    #+#              #
-#    Updated: 2025/08/07 15:33:28 by mmiilpal         ###   ########.fr        #
+#    Updated: 2025/08/13 11:36:58 by mmiilpal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = fragtrap
+NAME = diamondtrap
 
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
