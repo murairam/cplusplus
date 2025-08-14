@@ -3,7 +3,7 @@ NAME = interface
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC = main.cpp Character.cpp AMateria.cpp Cure.cpp Ice.cpp MateriaSource.cpp
+SRC = main.cpp Character.cpp AMateria.cpp Cure.cpp Ice.cpp MateriaSource.cpp MateriaManager.cpp
 
 OBJ = $(SRC:.cpp=.o)
 

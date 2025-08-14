@@ -1,5 +1,5 @@
 #include "Character.hpp"
-
+#include "MateriaManager.hpp"
 
 Character::Character(std::string name) : _name(name) {
     for (int i = 0; i < 4; i++) {
@@ -64,8 +64,10 @@ void Character::equip(AMateria* m){
 }
 
 void Character::unequip(int idx){
-    if (idx >= 0 && idx < 4 && _inventory[idx] != NULL)
+    if (idx >= 0 && idx < 4 && _inventory[idx] != NULL){
+        MateriaManager::store(_inventory[idx]); 
         _inventory[idx] = NULL;
+    }
 }
 
 void Character::use(int idx, ICharacter& target){
