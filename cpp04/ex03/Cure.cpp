@@ -1,11 +1,11 @@
 #include "Cure.hpp"
 
 Cure::Cure() : AMateria("cure"){
-    std::cout << "Cure constructed!" << std::endl;
+    //std::cout << "Cure constructed!" << std::endl;
 }
 
 Cure::Cure(const Cure& other): AMateria(other){
-    std::cout << "Cure copy constructor called" << std::endl;
+    //std::cout << "Cure copy constructor called" << std::endl;
 }
 
 Cure& Cure::operator=(const Cure& other){
@@ -14,7 +14,7 @@ Cure& Cure::operator=(const Cure& other){
 }
 
 Cure::~Cure(){
-    std::cout << "Cure " << this->_type << " destructed!" << std::endl;
+   // std::cout << "Cure " << this->_type << " destructed!" << std::endl;
 }
 
 AMateria* Cure::clone() const {

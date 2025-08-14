@@ -1,11 +1,11 @@
 #include "Ice.hpp"
 
 Ice::Ice() : AMateria("ice"){
-    std::cout << "Ice constructed!" << std::endl;
+    //std::cout << "Ice constructed!" << std::endl;
 }
 
 Ice::Ice(const Ice& other): AMateria(other){
-    std::cout << "Ice copy constructor called" << std::endl;
+    //std::cout << "Ice copy constructor called" << std::endl;
 }
 
 Ice& Ice::operator=(const Ice& other){
@@ -14,7 +14,7 @@ Ice& Ice::operator=(const Ice& other){
 }
 
 Ice::~Ice(){
-    std::cout << "Ice " << this->_type << " destructed!" << std::endl;
+    //std::cout << "Ice " << this->_type << " destructed!" << std::endl;
 }
 
 AMateria* Ice::clone() const {
