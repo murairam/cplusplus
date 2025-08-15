@@ -2,6 +2,8 @@
 #include <iostream>
 
 Brain::Brain(){
+    for(int i = 0; i < 100; ++i)
+        ideas[i] = "";
     std::cout << "Brain created\n";
 }
 
