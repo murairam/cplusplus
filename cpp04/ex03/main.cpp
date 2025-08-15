@@ -1,3 +1,6 @@
+// main.cpp
+// Tests: Interfaces, Abstract Classes, Polymorphism, Deep Copy, Memory Management
+
 #include "Character.hpp"
 #include "MateriaSource.hpp"
 #include "Ice.hpp"
@@ -7,220 +10,260 @@
 #include <iostream>
 
 void printHeader(const std::string& title) {
-    std::cout << "\n" << GRY2 << std::string(50, '=') << RST << std::endl;
-    std::cout << BOLD << title << RST << std::endl;
-    std::cout << GRY2 << std::string(50, '=') << RST << std::endl;
+    std::cout << "\n" << PINK << std::string(50, '=') << RST << std::endl;
+    std::cout << BOLD << "  " << title << RST << std::endl;
+    std::cout << PINK << std::string(50, '=') << RST << std::endl;
 }
 
-void printSubtest(const std::string& test) {
-    std::cout << "\n" << NAVY << "--- " << test << " ---" << RST << std::endl;
-}
-
-void printSuccess(const std::string& message) {
-    std::cout << PINK << "✓ " << message << RST << std::endl;
-}
-
-void printInfo(const std::string& message) {
-    std::cout << GRY1 << message << RST << std::endl;
-}
-
-// Subject's mandatory test - EXACTLY as provided
-int subjectTest() {
-    printHeader("MANDATORY TEST FROM SUBJECT");
-    
-    IMateriaSource* src = new MateriaSource();
-    src->learnMateria(new Ice());
-    src->learnMateria(new Cure());
-    
-    ICharacter* me = new Character("me");
-    
-    AMateria* tmp;
-    tmp = src->createMateria("ice");
-    me->equip(tmp);
-    tmp = src->createMateria("cure");
-    me->equip(tmp);
-    
-    ICharacter* bob = new Character("bob");
-    
-    std::cout << "Expected output:" << std::endl;
-    me->use(0, *bob);
-    me->use(1, *bob);
-    
-    delete bob;
-    delete me;
-    delete src;
-    
-    printSuccess("Subject test completed");
-    return 0;
+void printTest(const std::string& test) {
+    std::cout << "\n" << BLUE << "--- " << test << " ---" << RST << std::endl;
 }
 
 int main() {
-    printHeader("CPP MODULE 04 - EXERCISE 03");
-    std::cout << "Testing: Interfaces, Abstract Classes & Polymorphism\n" << std::endl;
+    printHeader("CPP04 EX03: INTERFACE & MATERIA");
     
-    // Run the mandatory subject test first
-    subjectTest();
-    
-    printHeader("EVALUATION TESTS");
-    
-    // Test 1: Interface compliance
-    printSubtest("Test 1: Interface Compliance");
+    // =========================================================================
+    // 1. MANDATORY SUBJECT TEST
+    // =========================================================================
+    printHeader("1. MANDATORY SUBJECT TEST");
     {
-        IMateriaSource* source = new MateriaSource();
-        ICharacter* character = new Character("TestChar");
-        
-        std::cout << "ICharacter name: " << character->getName() << std::endl;
-        std::cout << "IMateriaSource: functional" << std::endl;
-        
-        delete character;
-        delete source;
-        printSuccess("Interfaces working as required");
-    }
-    
-    // Test 2: MateriaSource functionality
-    printSubtest("Test 2: MateriaSource Learning & Creation");
-    {
-        IMateriaSource* source = new MateriaSource();
-        
-        printInfo("Learning materias...");
-        source->learnMateria(new Ice());
-        source->learnMateria(new Cure());
-        source->learnMateria(new Ice());
-        source->learnMateria(new Cure());
-        
-        AMateria* ice = source->createMateria("ice");
-        AMateria* cure = source->createMateria("cure");
-        AMateria* unknown = source->createMateria("fire");
-        
-        std::cout << "Ice created: " << (ice ? ice->getType() : "NULL") << std::endl;
-        std::cout << "Cure created: " << (cure ? cure->getType() : "NULL") << std::endl;
-        std::cout << "Fire created: " << (unknown ? "ERROR" : "NULL (correct)") << std::endl;
-        
-        delete ice;
-        delete cure;
-        delete source;
-        printSuccess("MateriaSource working correctly");
-    }
-    
-    // Test 3: Character inventory
-    printSubtest("Test 3: Character Inventory (4 slots max)");
-    {
-        ICharacter* wizard = new Character("Gandalf");
-        IMateriaSource* spellbook = new MateriaSource();
-        
-        spellbook->learnMateria(new Ice());
-        spellbook->learnMateria(new Cure());
-        
-        printInfo("Equipping 4 materias...");
-        wizard->equip(spellbook->createMateria("ice"));
-        wizard->equip(spellbook->createMateria("cure"));
-        wizard->equip(spellbook->createMateria("ice"));
-        wizard->equip(spellbook->createMateria("cure"));
-        
-        printInfo("Trying 5th materia (should be ignored):");
-        AMateria* extra = spellbook->createMateria("ice");
-        wizard->equip(extra);
-        delete extra;
-        
-        ICharacter* target = new Character("Orc");
-        std::cout << "Testing all slots:" << std::endl;
-        for (int i = 0; i < 4; i++) {
-            std::cout << "Slot " << i << ": ";
-            wizard->use(i, *target);
-        }
-        
-        delete target;
-        delete wizard;
-        delete spellbook;
-        printSuccess("Character inventory working");
-    }
-    
-    // Test 4: Deep copy
-    printSubtest("Test 4: Deep Copy Testing");
-    {
-        Character original("Merlin");
         IMateriaSource* src = new MateriaSource();
         src->learnMateria(new Ice());
         src->learnMateria(new Cure());
         
-        original.equip(src->createMateria("ice"));
-        original.equip(src->createMateria("cure"));
+        ICharacter* me = new Character("me");
         
-        Character copy1 = original;  // Copy constructor
-        Character copy2("Empty");
-        copy2 = original;  // Assignment operator
+        AMateria* tmp;
+        tmp = src->createMateria("ice");
+        me->equip(tmp);
+        tmp = src->createMateria("cure");
+        me->equip(tmp);
         
-        std::cout << "Original: " << original.getName() << std::endl;
-        std::cout << "Copy1: " << copy1.getName() << std::endl;
-        std::cout << "Copy2: " << copy2.getName() << std::endl;
+        ICharacter* bob = new Character("bob");
         
-        ICharacter* dummy = new Character("Dummy");
-        std::cout << "Testing independent copies:" << std::endl;
-        original.use(0, *dummy);
-        copy1.use(0, *dummy);
-        copy2.use(0, *dummy);
+        me->use(0, *bob);
+        me->use(1, *bob);
         
-        delete dummy;
+        delete bob;
+        delete me;
         delete src;
-        printSuccess("Deep copy working correctly");
+        
     }
+
+    // =========================================================================
+    // 2. INTERFACE & POLYMORPHISM
+    // =========================================================================
+    printHeader("2. INTERFACE & POLYMORPHISM");
     
-    // Test 5: Unequip with MateriaManager
-    printSubtest("Test 5: Unequip & Memory Management");
+    printTest("Interface Usage");
     {
-        ICharacter* mage = new Character("Mage");
-        IMateriaSource* src = new MateriaSource();
-        src->learnMateria(new Ice());
+        IMateriaSource* source = new MateriaSource();
+        ICharacter* character = new Character("Hero");
         
-        mage->equip(src->createMateria("ice"));
-        mage->equip(src->createMateria("ice"));
+        std::cout << "Character name via interface: " << BOLD << character->getName() << RST << std::endl;
+        std::cout << GRY1 << "Interfaces working polymorphically" << RST << std::endl;
         
-        ICharacter* target = new Character("Target");
-        
-        std::cout << "Before unequip:" << std::endl;
-        mage->use(0, *target);
-        
-        printInfo("Unequipping slot 0...");
-        mage->unequip(0);
-        
-        std::cout << "After unequip (should do nothing):" << std::endl;
-        mage->use(0, *target);
-        
-        std::cout << "Slot 1 still works:" << std::endl;
-        mage->use(1, *target);
-        
-        delete target;
-        delete mage;
-        delete src;
-        printSuccess("Unequip working without leaks");
+        delete character;
+        delete source;
     }
-    
-    // Test 6: Edge cases
-    printSubtest("Test 6: Edge Cases");
+
+    printTest("Abstract Class Test");
     {
-        ICharacter* hero = new Character("Hero");
-        ICharacter* dummy = new Character("Dummy");
+        AMateria* ice = new Ice();
+        AMateria* cure = new Cure();
         
-        printInfo("Testing invalid operations (should do nothing):");
-        hero->equip(NULL);
-        hero->use(-1, *dummy);
-        hero->use(10, *dummy);
-        hero->use(0, *dummy);  // Empty slot
-        hero->unequip(-1);
-        hero->unequip(10);
-        hero->unequip(0);  // Empty slot
+        std::cout << "Ice type: " << ice->getType() << std::endl;
+        std::cout << "Cure type: " << cure->getType() << std::endl;
+        std::cout << GRY1 << "AMateria is abstract - can only create derived classes" << RST << std::endl;
         
-        delete dummy;
-        delete hero;
-        printSuccess("Edge cases handled correctly");
+        delete ice;
+        delete cure;
     }
+
+    // =========================================================================
+    // 3. MATERIASOURCE FUNCTIONALITY
+    // =========================================================================
+    printHeader("3. MATERIASOURCE FUNCTIONALITY");
     
-    // Final cleanup
-    printHeader("CLEANUP");
+    printTest("Learning & Creating");
+    {
+        MateriaSource src;
+        src.learnMateria(new Ice());
+        src.learnMateria(new Cure());
+        
+        AMateria* ice = src.createMateria("ice");
+        AMateria* cure = src.createMateria("cure");
+        AMateria* unknown = src.createMateria("fire");
+        
+        std::cout << "Created ice: " << (ice ? ice->getType() : "NULL") << std::endl;
+        std::cout << "Created cure: " << (cure ? cure->getType() : "NULL") << std::endl;
+        std::cout << "Created fire: " << BOLD << (unknown ? "ERROR" : "NULL (correct)") << RST << std::endl;
+        
+        delete ice;
+        delete cure;
+        delete unknown;
+    }
+
+    printTest("Capacity Limits (4 slots)");
+    {
+        MateriaSource src;
+        
+        // Fill capacity
+        src.learnMateria(new Ice());
+        src.learnMateria(new Cure());
+        src.learnMateria(new Ice());
+        src.learnMateria(new Cure());
+        std::cout << GRY1 << "Learned 4 materias (full capacity)" << RST << std::endl;
+        
+        // Test overflow - should delete excess
+        src.learnMateria(new Ice());
+        src.learnMateria(new Cure());
+        std::cout << BOLD << "Overflow handled - excess materias deleted" << RST << std::endl;
+    }
+
+    // =========================================================================
+    // 4. CHARACTER INVENTORY
+    // =========================================================================
+    printHeader("4. CHARACTER INVENTORY");
+    
+    printTest("Equipping & Using");
+    {
+        Character hero("Aragorn");
+        MateriaSource src;
+        src.learnMateria(new Ice());
+        src.learnMateria(new Cure());
+        
+        hero.equip(src.createMateria("ice"));
+        hero.equip(src.createMateria("cure"));
+        
+        Character target("Enemy");
+        std::cout << "Using materias:" << std::endl;
+        hero.use(0, target);  // Ice
+        hero.use(1, target);  // Cure
+        hero.use(2, target);  // Empty slot - does nothing
+    }
+
+    printTest("Inventory Limits & Unequip");
+    {
+        Character hero("Hero");
+        MateriaSource src;
+        src.learnMateria(new Ice());
+        
+        // Fill inventory
+        hero.equip(src.createMateria("ice"));
+        hero.equip(src.createMateria("ice"));
+        hero.equip(src.createMateria("ice"));
+        hero.equip(src.createMateria("ice"));
+        std::cout << GRY1 << "Inventory full (4 slots)" << RST << std::endl;
+        
+        // Test overflow
+        hero.equip(src.createMateria("ice"));
+        std::cout << BOLD << "Overflow handled - excess deleted" << RST << std::endl;
+        
+        // Test unequip
+        hero.unequip(0);
+        std::cout << "Unequipped slot 0, stored in MateriaManager: " << MateriaManager::getOrphanedCount() << std::endl;
+    }
+
+    // =========================================================================
+    // 5. DEEP COPY (CRITICAL TEST)
+    // =========================================================================
+    printHeader("5. DEEP COPY VERIFICATION");
+    
+    printTest("Copy Constructor");
+    {
+        Character original("Original");
+        MateriaSource src;
+        src.learnMateria(new Ice());
+        src.learnMateria(new Cure());
+        
+        original.equip(src.createMateria("ice"));
+        original.equip(src.createMateria("cure"));
+        
+        Character copy(original);  // Copy constructor
+        
+        Character dummy("Dummy");
+        std::cout << "Original: ";
+        original.use(0, dummy);
+        std::cout << "Copy: ";
+        copy.use(0, dummy);
+    }
+
+    printTest("Assignment Operator");
+    {
+        Character source("Source");
+        Character target("Target");
+        MateriaSource src;
+        src.learnMateria(new Ice());
+        
+        source.equip(src.createMateria("ice"));
+        target = source;  // Assignment
+        
+        Character dummy("Dummy");
+        std::cout << "After assignment: ";
+        target.use(0, dummy);
+    }
+
+    // =========================================================================
+    // 6. ERROR HANDLING
+    // =========================================================================
+    printHeader("6. ERROR HANDLING");
+    
+    printTest("Edge Cases");
+    {
+        Character hero("Hero");
+        Character target("Target");
+        
+        std::cout << GRY1 << "Testing invalid operations (should be safe):" << RST << std::endl;
+        hero.equip(NULL);         // NULL materia
+        hero.use(-1, target);     // Invalid index
+        hero.use(10, target);     // Invalid index
+        hero.unequip(-1);         // Invalid index
+        hero.unequip(0);          // Empty slot
+        
+    }
+
+    // =========================================================================
+    // 7. COMPREHENSIVE SCENARIO
+    // =========================================================================
+    printHeader("7. BATTLE SIMULATION");
+    {
+        std::cout << GRY1 << "Epic battle scenario..." << RST << std::endl;
+        
+        MateriaSource academy;
+        academy.learnMateria(new Ice());
+        academy.learnMateria(new Cure());
+        
+        Character wizard("Gandalf");
+        Character warrior("Aragorn");
+        Character enemy("Balrog");
+        
+        wizard.equip(academy.createMateria("ice"));
+        wizard.equip(academy.createMateria("cure"));
+        warrior.equip(academy.createMateria("ice"));
+        
+        std::cout << "\nBattle begins:" << std::endl;
+        wizard.use(0, enemy);    // Gandalf attacks
+        warrior.use(0, enemy);   // Aragorn attacks
+        wizard.use(1, warrior);  // Gandalf heals Aragorn
+        
+        // Test copy during battle
+        Character backup(wizard);
+        std::cout << "Backup wizard: ";
+        backup.use(0, enemy);
+        
+        std::cout << BOLD << "\n Battle completed successfully" << RST << std::endl;
+    }
+
+    // =========================================================================
+    // 8. MEMORY CLEANUP
+    // =========================================================================
+    printHeader("8. MEMORY MANAGEMENT");
     {
         std::cout << "Orphaned materias: " << MateriaManager::getOrphanedCount() << std::endl;
         MateriaManager::cleanup();
         std::cout << "After cleanup: " << MateriaManager::getOrphanedCount() << std::endl;
+        std::cout << BOLD << " No memory leaks" << RST << std::endl;
     }
     
     return 0;

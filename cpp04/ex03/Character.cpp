@@ -61,6 +61,8 @@ void Character::equip(AMateria* m){
     int slot = findFirstEmptySlot();
     if (slot != -1)
         _inventory[slot] = m;
+    else
+        delete m;
 }
 
 void Character::unequip(int idx){

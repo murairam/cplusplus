@@ -54,6 +54,8 @@ void MateriaSource::learnMateria(AMateria* m){
     int slot = findFirstEmptySlot();
     if (slot != -1)
         _templates[slot] = m;
+    else
+        delete  m;
 
 }
 AMateria* MateriaSource::createMateria(std::string const & type){
