@@ -11,38 +11,37 @@ int main() {
 
 	srand(time(NULL));
 
-
 	std::cout << "\033[33m" << std::endl << "Test ex02" << "\033[0m" << std::endl;
 
 	std::cout << "\033[33m" << std::endl << "Test ex02 ShrubberyCreationForm" << "\033[0m" << std::endl;
-	Bureaucrat Mr_Shrubby("Mr_Shrubby", 130);
-	ShrubberyCreationForm Shrubby_form("Hello");
+	Bureaucrat james("james", 130);
+	ShrubberyCreationForm Shrubbyform("Hello");
 	std::cout << std::endl;
-	std::cout << Shrubby_form;
-	Mr_Shrubby.signForm(Shrubby_form);
-	std::cout << Shrubby_form;
-	Mr_Shrubby.executeForm(Shrubby_form);
+	std::cout << Shrubbyform;
+	james.signForm(Shrubbyform);
+	std::cout << Shrubbyform;
+	james.executeForm(Shrubbyform);
 
 	std::cout << "\033[33m" << std::endl << "Test ex02 RobotomyRequestForm" << "\033[0m" << std::endl;
-	RobotomyRequestForm Robo_form("I am a robo form");
-	Bureaucrat Mr_Robo("Mr_Robo", 45);
+	RobotomyRequestForm RoboForm("I am a robo form");
+	Bureaucrat mrrobot("mrrobot", 45);
 
-	Mr_Robo.executeForm(Robo_form);
-	Mr_Robo.signForm(Robo_form);
-	Mr_Robo.executeForm(Robo_form);
-	Mr_Robo.executeForm(Robo_form);
-	Mr_Robo.executeForm(Robo_form);
+	mrrobot.executeForm(RoboForm);
+	mrrobot.signForm(RoboForm);
+	mrrobot.executeForm(RoboForm);
+	mrrobot.executeForm(RoboForm);
+	mrrobot.executeForm(RoboForm);
 
 	std::cout << "\033[33m" << std::endl << "Test ex02 PresidentialPardonForm" << "\033[0m" << std::endl;
 	PresidentialPardonForm President_form("I am a robo form");
-	Bureaucrat Mr_President("Mr_President", 5);
+	Bureaucrat Trump("Trump", 5);
 
-	Mr_Robo.executeForm(President_form);
-	Mr_Robo.signForm(President_form);
+	mrrobot.executeForm(President_form);
+	mrrobot.signForm(President_form);
 
-	Mr_President.executeForm(President_form);
-	Mr_President.signForm(President_form);
-	Mr_President.executeForm(President_form);
+	Trump.executeForm(President_form);
+	Trump.signForm(President_form);
+	Trump.executeForm(President_form);
 
     return 0;
 }

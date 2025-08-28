@@ -29,12 +29,14 @@ RobotomyRequestForm &RobotomyRequestForm::operator=( RobotomyRequestForm const &
 
 void RobotomyRequestForm::performAction() const
 {
-	std::cout << "Bzzzz... Drilling noises..." << std::endl;
-	srand(time(NULL));
-	if (rand() % 2)
-		std::cout << _target << " has been robotomized successfully!" << std::endl;
+	int random_number;
+
+	random_number = rand() % 2;
+
+	if (random_number == 1)
+		std::cout << "Beeep Be Be Beeeee Beeeeeeeep. " << getName() << " has been robotomized successfully!" << std::endl; 		
 	else
-		std::cout << "The robotomy failed on " << _target << "." << std::endl;
+		throw RobotizationFailed();
 }
 
 const char *RobotomyRequestForm::RobotizationFailed::what() const throw()
