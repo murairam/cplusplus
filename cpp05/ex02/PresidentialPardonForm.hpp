@@ -13,12 +13,12 @@ class PresidentialPardonForm
 		PresidentialPardonForm( PresidentialPardonForm const & src );
 		~PresidentialPardonForm();
 
-		PresidentialPardonForm &		operator=( PresidentialPardonForm const & rhs );
+		PresidentialPardonForm &operator=( PresidentialPardonForm const & rhs );
 
 	private:
 
 };
 
-std::ostream &			operator<<( std::ostream & o, PresidentialPardonForm const & i );
+std::ostream &operator<<( std::ostream & o, PresidentialPardonForm const & i );
 
-#endif /* ****************************************** PRESIDENTIALPARDONFORM_H */
+#endif
