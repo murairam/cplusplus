@@ -1,42 +1,43 @@
 #include "RobotomyRequestForm.hpp"
 
-/*
-** ------------------------------- CONSTRUCTOR --------------------------------
-*/
 
-RobotomyRequestForm::RobotomyRequestForm()
+
+RobotomyRequestForm::RobotomyRequestForm() : AForm("RobotomyRequestForm", 72, 45)
 {
 }
 
-RobotomyRequestForm::RobotomyRequestForm( const RobotomyRequestForm & src )
+RobotomyRequestForm::RobotomyRequestForm(const std::string target) : AForm("RobotomyRequestForm", 72, 45), _target(target)
 {
+}	
+
+RobotomyRequestForm::RobotomyRequestForm( const RobotomyRequestForm & src ) : AForm(src)
+{
+	*this = src;
 }
 
-
-/*
-** -------------------------------- DESTRUCTOR --------------------------------
-*/
 
 RobotomyRequestForm::~RobotomyRequestForm()
 {
 }
 
-
-/*
-** --------------------------------- OVERLOAD ---------------------------------
-*/
-
-RobotomyRequestForm &RobotomyRequestForm::operator=( RobotomyRequestForm const & rhs )
+RobotomyRequestForm &RobotomyRequestForm::operator=( RobotomyRequestForm const & other )
 {
-	//if ( this != &rhs )
-	//{
-		//this->_value = rhs.getValue();
-	//}
-	return *this;
+	_target = other._target;
+	setIsSigned(other.getIsSigned());
+	return (*this);
 }
 
-std::ostream &operator<<( std::ostream & o, RobotomyRequestForm const & i )
+void RobotomyRequestForm::performAction() const
 {
-	//o << "Value = " << i.getValue();
-	return o;
+	std::cout << "Bzzzz... Drilling noises..." << std::endl;
+	srand(time(NULL));
+	if (rand() % 2)
+		std::cout << _target << " has been robotomized successfully!" << std::endl;
+	else
+		std::cout << "The robotomy failed on " << _target << "." << std::endl;
+}
+
+const char *RobotomyRequestForm::RobotizationFailed::what() const throw()
+{
+	return ("Unfortunately robotomy failed.");
 }

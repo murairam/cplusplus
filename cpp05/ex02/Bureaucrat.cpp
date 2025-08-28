@@ -19,8 +19,7 @@ Bureaucrat::Bureaucrat(const Bureaucrat& other) : _name(other._name), _grade(oth
 
 }
 Bureaucrat& Bureaucrat::operator=(const Bureaucrat& other){
-    if (this != &other)
-    {
+    if (this != &other){
         _grade = validateGrade(other._grade);
     }
     return  *this;
@@ -32,14 +31,17 @@ Bureaucrat::~Bureaucrat(){
 std::string Bureaucrat::getName() const{
     return _name;
 }
+
 int         Bureaucrat::getGrade() const {
     return _grade;
 }
+
 void    Bureaucrat::incrementGrade(){
     int newGrade = _grade - 1;
     validateGrade(newGrade);
     _grade = newGrade;
 }
+
 void    Bureaucrat::decrementGrade(){
     int newGrade = _grade + 1;
     validateGrade(newGrade);
@@ -56,13 +58,22 @@ const char *Bureaucrat::GradeTooLowException::what() const throw()
 	return ("Grade too low!");
 }
 
-void Bureaucrat::signForm(Form& form){
+void Bureaucrat::signForm(AForm& form){
     try {
         form.beSigned(*this);
         std::cout << this->getName() << " signed " << form.getName() << std::endl;
     }
     catch (std::exception& e){
         std::cout <<  this->getName() << " couldn't sign " << form.getName() << " because " << e.what() << std::endl;
+    }
+}
+void Bureaucrat::executeForm(AForm const & form) const {
+    try {
+        form.execute(*this);
+        std::cout << this->getName() << " executed " << form.getName() << std::endl;
+    }
+    catch (std::exception& e){
+        std::cout <<  this->getName() << " couldn't execute " << form.getName() << " because " << e.what() << std::endl;
     }
 }
 

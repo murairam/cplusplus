@@ -4,8 +4,9 @@
 #include <string>
 #include <iostream>
 #include <exception>
+#include "AForm.hpp"
 
-class Form;
+class AForm;
 
 class Bureaucrat {
     private:
@@ -37,7 +38,9 @@ class Bureaucrat {
             virtual const char *what() const throw();
         };
         
-        void    signForm(Form& form);
+        void    signForm(AForm& form);
+
+        void    executeForm(AForm const & form) const;
 
 };
 

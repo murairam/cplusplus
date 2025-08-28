@@ -1,67 +1,63 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ShrubberyCreationForm.cpp                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mmiilpal <mmiilpal@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/21 19:24:29 by mmiilpal          #+#    #+#             */
-/*   Updated: 2025/08/21 19:24:30 by mmiilpal         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "ShrubberyCreationForm.hpp"
+#include <fstream>
+#include <iostream>
+#include <string>
 
-/*
-** ------------------------------- CONSTRUCTOR --------------------------------
-*/
-
-ShrubberyCreationForm::ShrubberyCreationForm()
+ShrubberyCreationForm::ShrubberyCreationForm() : AForm("ShrubberyCreationForm", 145, 137)
 {
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm( const ShrubberyCreationForm & src )
+ShrubberyCreationForm::ShrubberyCreationForm( std::string target ) : AForm("ShrubberyCreationForm", 145, 137), _target(target)
 {
+
 }
 
-
-/*
-** -------------------------------- DESTRUCTOR --------------------------------
-*/
+ShrubberyCreationForm::ShrubberyCreationForm( const ShrubberyCreationForm & src ) : AForm(src), _target(src._target)
+{
+}
 
 ShrubberyCreationForm::~ShrubberyCreationForm()
 {
 }
 
-
-/*
-** --------------------------------- OVERLOAD ---------------------------------
-*/
-
-ShrubberyCreationForm &				ShrubberyCreationForm::operator=( ShrubberyCreationForm const & rhs )
+ShrubberyCreationForm &ShrubberyCreationForm::operator=(const ShrubberyCreationForm &other)
 {
-	//if ( this != &rhs )
-	//{
-		//this->_value = rhs.getValue();
-	//}
+	if (this != &other){
+		_target = other._target;
+		setIsSigned(other.getIsSigned());
+	}
 	return *this;
 }
 
-std::ostream &			operator<<( std::ostream & o, ShrubberyCreationForm const & i )
+void ShrubberyCreationForm::performAction() const
 {
-	//o << "Value = " << i.getValue();
-	return o;
+	std::ofstream outfile;
+	std::string filename = _target + "_shrubbery";
+	outfile.open(filename.c_str(), std::ios::out | std::ios::trunc);
+	if (!outfile.is_open())
+	{
+		std::cerr << "Error: Could not open file " << filename << " for writing." << std::endl;
+		return;
+	}
+
+	outfile << "       _-_" << std::endl;
+	outfile << "    /~~   ~~\\" << std::endl;
+	outfile << " /~~         ~~\\" << std::endl;
+	outfile << "{               }" << std::endl;
+	outfile << " \\  _-     -_  /" << std::endl;
+	outfile << "   ~  \\\\ //  ~" << std::endl;
+	outfile << "_- -   | | _- _" << std::endl;
+	outfile << "  _ -  | |   -_" << std::endl;
+	outfile << "      // \\\\" << std::endl;
+
+	outfile.close();
 }
 
-
-/*
-** --------------------------------- METHODS ----------------------------------
-*/
-
-
-/*
-** --------------------------------- ACCESSOR ---------------------------------
-*/
-
-
-/* ************************************************************************** */
+std::ostream &operator<<( std::ostream & o, ShrubberyCreationForm const & i )
+{
+	o << "Form Name: " << i.getName() << std::endl;
+	o << "Is Signed: " << (i.getIsSigned() ? "Yes" : "No") << std::endl;
+	o << "Sign Grade: " << i.getSignGrade() << std::endl;
+	o << "Exec Grade: " << i.getExecGrade() << std::endl;
+	return o;
+}

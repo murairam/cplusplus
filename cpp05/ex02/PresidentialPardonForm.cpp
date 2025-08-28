@@ -1,55 +1,33 @@
 #include "PresidentialPardonForm.hpp"
 
-/*
-** ------------------------------- CONSTRUCTOR --------------------------------
-*/
-
-PresidentialPardonForm::PresidentialPardonForm()
+PresidentialPardonForm::PresidentialPardonForm() : AForm("PresidentialPardonForm", 25, 5)
 {
 }
 
-PresidentialPardonForm::PresidentialPardonForm( const PresidentialPardonForm & src )
+PresidentialPardonForm::PresidentialPardonForm( const PresidentialPardonForm & src ) : AForm(src)
 {
+	*this = src;
 }
+PresidentialPardonForm::PresidentialPardonForm( std::string target ) : AForm("PresidentialPardonForm", 25, 5), _target(target)
+{
 
-
-/*
-** -------------------------------- DESTRUCTOR --------------------------------
-*/
-
+}
 PresidentialPardonForm::~PresidentialPardonForm()
 {
 }
 
 
-/*
-** --------------------------------- OVERLOAD ---------------------------------
-*/
-
-PresidentialPardonForm &				PresidentialPardonForm::operator=( PresidentialPardonForm const & rhs )
+PresidentialPardonForm &PresidentialPardonForm::operator=( PresidentialPardonForm const &other )
 {
-	//if ( this != &rhs )
-	//{
-		//this->_value = rhs.getValue();
-	//}
+	if ( this != &other )
+	{
+		this->_target = other._target;
+	}
+	setIsSigned(other.getIsSigned());
 	return *this;
 }
 
-std::ostream &			operator<<( std::ostream & o, PresidentialPardonForm const & i )
+void PresidentialPardonForm::performAction() const
 {
-	//o << "Value = " << i.getValue();
-	return o;
+	std::cout << _target << " has been pardoned by Zaphod Beeblebrox." << std::endl;
 }
-
-
-/*
-** --------------------------------- METHODS ----------------------------------
-*/
-
-
-/*
-** --------------------------------- ACCESSOR ---------------------------------
-*/
-
-
-/* ************************************************************************** */
