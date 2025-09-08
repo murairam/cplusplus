@@ -9,31 +9,24 @@
 #include <iostream>
 
 int main() {
+	AForm* form;
+	Intern goodBoy;
 
-	srand(time(NULL));
-
-	std::cout << "\033[33m" << std::endl << "Test ex03" << "\033[0m" << std::endl;
-
-	Intern intern;
-	AForm *form = intern.makeForm("shrubbery creation", "Target");
-	if (form) {
+	form = goodBoy.makeForm("shrubbery", "shrubs");
+	if (form)
 		delete form;
-	}
 
-	form = intern.makeForm("robotomy request", "Target");
-	if (form) {
+	form = goodBoy.makeForm("robotomy", "robot");
+	if (form)
 		delete form;
-	}
+		
+	form = goodBoy.makeForm("presidential", "president");
+	if (form)
+		delete form;
 
-	form = intern.makeForm("presidential pardon", "Target");
-	if (form) {
+	form = goodBoy.makeForm("coffee", "make coffee");
+	if (form)
 		delete form;
-	}
-
-	form = intern.makeForm("unknown form", "Target");
-	if (form) {
-		delete form;
-	}
 
     return 0;
 }

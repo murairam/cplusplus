@@ -6,11 +6,11 @@
 #    By: mmiilpal <mmiilpal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/15 19:45:56 by mmiilpal          #+#    #+#              #
-#    Updated: 2025/08/28 18:27:38 by mmiilpal         ###   ########.fr        #
+#    Updated: 2025/09/08 13:28:15 by mmiilpal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = aform
+NAME = intern
 
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98

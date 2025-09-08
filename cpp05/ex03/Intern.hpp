@@ -2,17 +2,15 @@
 #define INTERN_HPP
 
 #include "AForm.hpp"
-#include "Bureaucrat.hpp"
 
 class Intern {
-public:
-    Intern();
-    Intern(const Intern &src);
-    ~Intern();
+    public:
+        Intern();
+        Intern(const Intern& other);
+        Intern& operator=(const Intern& other);
+        ~Intern();
 
-    Intern &operator=(const Intern &rhs);
-
-    AForm *makeForm(const std::string &formName, const std::string &target);
+        AForm* makeForm(const std::string& formCall, const std::string& target);
 };
 
 #endif
