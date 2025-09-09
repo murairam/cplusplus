@@ -2,7 +2,7 @@
 #include "Data.hpp"
 #include <iostream>
 
-int main(){
+int main() {
 
     Data student;
     student.name = "bobby";
@@ -14,7 +14,7 @@ int main(){
     std::cout << "ptr value is: " << originalPtr << std::endl;
     
     uintptr_t serializedPtr = Serializer::serialize(originalPtr);
-    
+
     std::cout << "ptr int is: 0x" << std::hex << serializedPtr << std::dec << std::endl;
 
     Data* deserializedPtr = Serializer::deserialize(serializedPtr);
