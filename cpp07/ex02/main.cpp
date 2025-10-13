@@ -1,5 +1,5 @@
-#include <iostream>
-#include <Array.hpp>
+/* #include <iostream>
+#include "Array.hpp"
 
 #define MAX_VAL 750
 
@@ -50,5 +50,41 @@ int main(int, char**)
         numbers[i] = rand();
     }
     delete [] mirror;//
+    return 0;
+} */
+
+#include "Array.hpp"
+#include <iostream>
+
+int main() {
+    // Test construction and basic access
+    Array<int> arr(5);
+    for (unsigned int i = 0; i < arr.size(); i++)
+        arr[i] = i * 10;
+
+    // Test copy constructor
+    Array<int> copy(arr);
+    copy[0] = 999;
+    std::cout << "Original: " << arr[0] << ", Copy: " << copy[0] << std::endl;
+
+    // Test assignment operator
+    Array<int> assigned;
+    assigned = arr;
+    assigned[1] = 777;
+    std::cout << "Original: " << arr[1] << ", Assigned: " << assigned[1] << std::endl;
+
+    // Test bounds checking
+    try {
+        arr[99] = 0;
+    } catch (std::exception& e) {
+        std::cout << "Exception: " << e.what() << std::endl;
+    }
+
+    // Test with strings
+    Array<std::string> words(2);
+    words[0] = "Hello";
+    words[1] = "42";
+    std::cout << words[0] << " " << words[1] << std::endl;
+
     return 0;
 }
