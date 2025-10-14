@@ -1,6 +1,6 @@
-NAME = easyfind
+NAME = span
 
-CXX  = c++
+CXX = c++
 CXXFLAGS = -Wall -Werror -Wextra -std=c++98 -g
 DEPFLAGS = -MMD -MP
 
@@ -13,10 +13,12 @@ all : $(NAME)
 
 $(NAME) : $(OBJ)
 	@$(CXX) $(CXXFLAGS) $(OBJ) -o $(NAME)
-	@echo " $(NAME) compiled"
+	@echo "compiled"
 
-%.o : %.cpp $(HDR)
+%.o : %.cpp
 	@$(CXX) $(CXXFLAGS) $(DEPFLAGS) -c $< -o $@
+
+-include $(DEP)
 
 clean :
 	@rm -f $(OBJ) $(DEP)
