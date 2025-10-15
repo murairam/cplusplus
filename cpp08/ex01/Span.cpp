@@ -6,12 +6,11 @@
 /*   By: mmiilpal <mmiilpal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 12:44:05 by mmiilpal          #+#    #+#             */
-/*   Updated: 2025/10/15 13:41:25 by mmiilpal         ###   ########.fr       */
+/*   Updated: 2025/10/15 15:23:47 by mmiilpal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Span.hpp"
-#include <algorithm>
 
 Span::Span() : _N(0), _numbers(){
 
@@ -36,7 +35,7 @@ Span::~Span(){
 
 void Span::addNumber(int number){
 	if (_numbers.size() == _N){
-		throw std::out_of_range("array full");
+		throw FullContainerException();
 	}
 	_numbers.push_back(number);
 }
@@ -48,7 +47,7 @@ int Span::shortestSpan(){
 	std::vector<int> sorted = _numbers;
 	std::sort(sorted.begin(), sorted.end());
 	int min_diff = INT_MAX;
-	for (int i = 0; i < (int)_numbers.size() - 2; i++){
+	for (int i = 0; i < (int)_numbers.size() - 1; i++){
 		int diff = sorted[i + 1] - sorted[i];
 		if (diff < min_diff){
 			min_diff = diff;
@@ -61,4 +60,8 @@ int Span::longestSpan(){
 		throw std::out_of_range("not enough elements to compare");
 	}
 	return *std::max_element(_numbers.begin(), _numbers.end()) - *std::min_element(_numbers.begin(), _numbers.end());
+}
+
+const char *Span::FullContainerException::what() const throw(){
+	return ("container is full");
 }

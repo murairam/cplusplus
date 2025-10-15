@@ -16,8 +16,8 @@ Array<T>::Array(const Array &other) :_size(other._size)
 		_data = NULL;
 	} else {
 		_data = new T[_size];
-	for (unsigned int i = 0; i < _size; i++){
-		_data[i] = other._data[i];
+		for (unsigned int i = 0; i < _size; i++){
+			_data[i] = other._data[i];
 	}
 	}
 };
