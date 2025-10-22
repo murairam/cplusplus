@@ -6,7 +6,7 @@
 /*   By: mmiilpal <mmiilpal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 14:47:56 by mmiilpal          #+#    #+#             */
-/*   Updated: 2025/10/15 15:29:32 by mmiilpal         ###   ########.fr       */
+/*   Updated: 2025/10/16 11:55:10 by mmiilpal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,17 @@ int main()
 	std::cout << sp.longestSpan() << std::endl << std::endl;
 
 	std::vector<int> v1;
-	int size = 1000000;
+	int size = 10000000;
 	std::srand(time(NULL));
 	for (int i = 0; i < size; i++){
-		v1.push_back(rand() % INT_MAX - 1);
+		v1.push_back(rand() % (INT_MAX - 1));
 	}
 	Span span = Span(size);
 	try{
+		std::cout << "-test 100k numbers-" << std::endl;
 		span.addRange(v1.begin(), v1.end());
-		std::cout << span.shortestSpan() << std::endl;
-		std::cout << span.longestSpan() << std::endl;
+		std::cout << "short: " << span.shortestSpan() << std::endl;
+		std::cout << "long:: " << span.longestSpan() << std::endl;
 	}
 	catch(std::exception &e)
 	{
