@@ -6,9 +6,12 @@
 /*   By: mmiilpal <mmiilpal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 15:35:55 by mmiilpal          #+#    #+#             */
-/*   Updated: 2025/10/15 15:41:36 by mmiilpal         ###   ########.fr       */
+/*   Updated: 2025/10/26 14:28:00 by mmiilpal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "MutantStack.hpp"
+#include <iostream>
 
 int main()
 {
