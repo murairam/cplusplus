@@ -1,10 +1,10 @@
-NAME = span
+NAME = mutantstack
 
 CXX = c++
 CXXFLAGS = -Wall -Werror -Wextra -std=c++98 -g
 DEPFLAGS = -MMD -MP
 
-SRC = main.cpp MutantStack.cpp
+SRC = main.cpp
 
 OBJ = $(SRC:.cpp=.o)
 DEP = $(SRC:.cpp=.d)
