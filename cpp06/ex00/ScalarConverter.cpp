@@ -6,7 +6,7 @@
 /*   By: mmiilpal <mmiilpal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 16:54:32 by mmiilpal          #+#    #+#             */
-/*   Updated: 2025/10/27 16:56:59 by mmiilpal         ###   ########.fr       */
+/*   Updated: 2025/10/27 18:00:36 by mmiilpal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <climits>
 #include <cmath>
 #include <cstdlib>
+#include <iomanip>
 
 enum LiteralType { CHAR, INT, FLOAT, DOUBLE, INVALID };
 
@@ -61,9 +62,13 @@ static void printFloat(double value) {
     }
     else {
         float f = static_cast<float>(value);
-        std::cout << "float: " << f;
-        if (f == static_cast<int>(f)) {  // No decimal part
-            std::cout << ".0";
+        std::cout << "float: ";
+        if (f == static_cast<int>(f) && f >= -1000000 && f <= 1000000) {
+            // For whole numbers in normal range, show with .0
+            std::cout << std::fixed << std::setprecision(1) << f;
+        } else {
+            // For large numbers or decimals, use default formatting
+            std::cout << std::resetiosflags(std::ios::fixed) << f;
         }
         std::cout << "f" << std::endl;
     }
@@ -81,9 +86,13 @@ static void printDouble(double value) {
         }
     }
     else {
-        std::cout << "double: " << value;
-        if (value == static_cast<int>(value)) {  // No decimal part
-            std::cout << ".0";
+        std::cout << "double: ";
+        if (value == static_cast<int>(value) && value >= -1000000 && value <= 1000000) {
+            // For whole numbers in normal range, show with .0
+            std::cout << std::fixed << std::setprecision(1) << value;
+        } else {
+            // For large numbers or decimals, use default formatting
+            std::cout << std::resetiosflags(std::ios::fixed) << value;
         }
         std::cout << std::endl;
     }
