@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Bureaucrat.cpp                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmiilpal <mmiilpal@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/27 13:49:23 by mmiilpal          #+#    #+#             */
+/*   Updated: 2025/10/27 14:04:56 by mmiilpal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Bureaucrat.hpp"
 #include "AForm.hpp"
 
@@ -59,6 +71,10 @@ const char *Bureaucrat::GradeTooLowException::what() const throw()
 }
 
 void Bureaucrat::signForm(AForm& form){
+    if (form.getIsSigned()) {
+        std::cout << this->getName() << " couldn't sign " << form.getName() << " because it's already signed" << std::endl;
+        return;
+    }
     try {
         form.beSigned(*this);
         std::cout << this->getName() << " signed " << form.getName() << std::endl;
@@ -68,6 +84,10 @@ void Bureaucrat::signForm(AForm& form){
     }
 }
 void Bureaucrat::executeForm(AForm const & form) const {
+    if (!form.getIsSigned()) {
+        std::cout << this->getName() << " couldn't execute " << form.getName() << " because it's not signed" << std::endl;
+        return;
+    }
     try {
         form.execute(*this);
         std::cout << this->getName() << " executed " << form.getName() << std::endl;

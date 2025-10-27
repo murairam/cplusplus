@@ -36,21 +36,20 @@ static AForm* createPresidential(const std::string &target){
 }
 
 AForm* Intern::makeForm(const std::string& formCall, const std::string& target){
-    std::string formCalls[3] = {"shrubbery", "robotomy", "presidential"};
+    std::string formCalls[3] = {"shrubbery creation", "robotomy request", "presidential pardon"};
     AForm* (*formNames[3])(const std::string &) = {
         createShrubbery,
         createRobotomy,
         createPresidential
     };
-    AForm* form = NULL;
 
     for(int i = 0; i < 3; i++){
         if (formCall == formCalls[i]){
-            form = formNames[i](target);
+            AForm* form = formNames[i](target);
             std::cout << "Intern creates " << form->getName() << std::endl;
+            return form;
         }
     }
-    if (!form)
-        std::cout << "Intern is useless and form does not exist" << std::endl;
-    return form;
+    std::cout << "Intern cannot create form \"" << formCall << "\" because it doesn't exist" << std::endl;
+    return NULL;
 }

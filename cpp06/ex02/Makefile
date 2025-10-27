@@ -2,7 +2,7 @@ NAME = realtype
 CXX = c++
 CXXFLAGS = -Wall -Werror -Wextra -std=c++98
 
-SRC = main.cpp
+SRC = main.cpp Base.cpp
 
 HDR = Base.hpp
 
@@ -21,7 +21,7 @@ clean:
 	rm -f $(OBJ)
 
 fclean:
-	rm -f $(NAME)
+	rm -f $(OBJ) $(NAME)
 
 re: fclean all
 

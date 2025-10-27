@@ -59,6 +59,10 @@ const char *Bureaucrat::GradeTooLowException::what() const throw()
 }
 
 void Bureaucrat::signForm(AForm& form){
+    if (form.getIsSigned()) {
+        std::cout << this->getName() << " couldn't sign " << form.getName() << " because it's already signed" << std::endl;
+        return;
+    }
     try {
         form.beSigned(*this);
         std::cout << this->getName() << " signed " << form.getName() << std::endl;
@@ -68,6 +72,10 @@ void Bureaucrat::signForm(AForm& form){
     }
 }
 void Bureaucrat::executeForm(AForm const & form) const {
+    if (!form.getIsSigned()) {
+        std::cout << this->getName() << " couldn't execute " << form.getName() << " because it's not signed" << std::endl;
+        return;
+    }
     try {
         form.execute(*this);
         std::cout << this->getName() << " executed " << form.getName() << std::endl;

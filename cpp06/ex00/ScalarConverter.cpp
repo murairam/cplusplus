@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ScalarConverter.cpp                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmiilpal <mmiilpal@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/27 16:54:32 by mmiilpal          #+#    #+#             */
+/*   Updated: 2025/10/27 16:56:59 by mmiilpal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ScalarConverter.hpp"
 #include <limits>
 #include <string>
@@ -160,7 +172,18 @@ static char parseChar(const std::string& input) {
     }
 }
 
-void ScalarConverter::convert(const std::string& literal) {
+ScalarConverter &ScalarConverter::operator=(const ScalarConverter &other)
+{
+    (void)other;
+    return *this;
+}
+
+ScalarConverter::~ScalarConverter()
+{
+}
+
+void ScalarConverter::convert(const std::string &literal)
+{
     LiteralType type = detectType(literal);
     
 	switch(type) {
@@ -171,6 +194,5 @@ void ScalarConverter::convert(const std::string& literal) {
  	   case INVALID: 
  	       std::cout << "Error: Invalid input format" << std::endl;
  	       break;
-}	
 }
-
+}

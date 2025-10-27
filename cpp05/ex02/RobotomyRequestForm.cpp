@@ -1,6 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   RobotomyRequestForm.cpp                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmiilpal <mmiilpal@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/27 13:49:01 by mmiilpal          #+#    #+#             */
+/*   Updated: 2025/10/27 13:53:00 by mmiilpal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "RobotomyRequestForm.hpp"
-
-
 
 RobotomyRequestForm::RobotomyRequestForm() : AForm("RobotomyRequestForm", 72, 45)
 {
@@ -34,7 +44,7 @@ void RobotomyRequestForm::performAction() const
 	random_number = rand() % 2;
 
 	if (random_number == 1)
-		std::cout << "Beeep Be Be Beeeee Beeeeeeeep. " << getName() << " has been robotomized successfully!" << std::endl; 		
+		std::cout << "Making drilling noises drrrr. " << getName() << " has been robotomized successfully!" << std::endl; 		
 	else
 		throw RobotizationFailed();
 }
