@@ -4,7 +4,7 @@ CXX = c++
 CXXFLAGS = -Wall -Werror -Wextra -std=c++98 -g
 DEPFLAGS = -MMD -MP
 
-SRC = main.cpp
+SRC = main.cpp BitcoinExchange.cpp
 
 OBJ = $(SRC:.cpp=.o)
 DEP = $(SRC:.cpp=.d)
