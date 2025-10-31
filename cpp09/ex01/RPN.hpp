@@ -6,7 +6,7 @@
 /*   By: mmiilpal <mmiilpal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 16:24:58 by mmiilpal          #+#    #+#             */
-/*   Updated: 2025/10/30 17:06:01 by mmiilpal         ###   ########.fr       */
+/*   Updated: 2025/10/31 15:14:36 by mmiilpal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,20 @@
 #include <stack>
 #include <string>
 #include <iostream>
+#include <string>
+#include <sstream>
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <iterator>
+#include <cstdlib>
+#include <cctype>
 
 class RPN{
 private:
     std::stack<int> _args;
     std::string _exp;
+    bool isOperator(char c);
     
 public:
     RPN();
@@ -30,7 +39,6 @@ public:
     ~RPN();
 
     bool calc();
-    bool parse();
 };
 
 #endif

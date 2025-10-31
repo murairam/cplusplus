@@ -6,7 +6,7 @@
 /*   By: mmiilpal <mmiilpal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 16:27:42 by mmiilpal          #+#    #+#             */
-/*   Updated: 2025/10/30 17:00:48 by mmiilpal         ###   ########.fr       */
+/*   Updated: 2025/10/31 15:09:06 by mmiilpal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int main(int argc, char**argv){
     RPN calculate(exp);
     
     if (!calculate.calc()){
-        std::cout << "Error" << std::endl;
         return 1;
     }
     return 0;

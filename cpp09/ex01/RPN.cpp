@@ -6,7 +6,7 @@
 /*   By: mmiilpal <mmiilpal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 16:27:14 by mmiilpal          #+#    #+#             */
-/*   Updated: 2025/10/30 17:50:56 by mmiilpal         ###   ########.fr       */
+/*   Updated: 2025/10/31 15:15:48 by mmiilpal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,28 +34,57 @@ RPN& RPN::operator=(const RPN& other ){
 
 RPN::~RPN(){};
 
-bool isOperator(char c)
-{
+bool RPN::isOperator(char c){
     return std::string("+-*/").find(c) != std::string::npos;
-}
-
-bool RPN::parse(){
-    for (std::string::iterator it = _exp.begin(); it != _exp.end(); ++it){
-        if(std::isdigit(static_cast<unsigned char>(*it)))
-            _args.push((int) *it - '0');
-        if(isOperator(*it)){
-            calculate();
-        }
-        
-    }
-    return true;
 }
 
 
 bool RPN::calc(){
-    std::cout << _exp << std::endl;
-    if (!parse())
+    std::istringstream iss(_exp);
+    std::string token;
+
+    while (iss >> token){
+		if (token.length() == 1 && std::isdigit(token[0])){
+			int value = token[0] - '0';  // Convert char to int
+			_args.push(value);
+			continue;
+		}
+
+        // token is not a number -> must be single operator
+        if (token.length() != 1 || !isOperator(token[0])){
+            std::cout << "Error" << std::endl;
+            return false;
+        }
+
+        if (_args.size() < 2){
+            std::cout << "Error" << std::endl;
+            return false;
+        }
+
+        int second = _args.top(); _args.pop();
+        int first  = _args.top(); _args.pop();
+        int result = 0;
+        switch (token[0]){
+            case '+': result = first + second; break;
+            case '-': result = first - second; break;
+            case '*': result = first * second; break;
+            case '/':
+                if (second == 0){
+                    std::cout << "Error" << std::endl;
+                    return false;
+                }
+                result = first / second; break;
+            default:
+                std::cout << "Error" << std::endl;
+                return false;
+        }
+        _args.push(result);
+    }
+
+    if (_args.size() != 1){
+        std::cout << "Error" << std::endl;
         return false;
+    }
     std::cout << _args.top() << std::endl;
     return true;
 }
