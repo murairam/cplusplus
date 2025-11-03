@@ -5,7 +5,7 @@ CXX = c++
 CXXFLAGS = -Werror -Wall -Wextra -std=c++98
 DEPFLAGS = -MMD -MP
 
-SRC = main.cpp RPN.cpp
+SRC = main.cpp PergeMe.cpp
 
 OBJ = $(SRC:.cpp=.o)
 DEP = $(SRC:.cpp=.d)
