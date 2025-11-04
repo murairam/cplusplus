@@ -1,11 +1,11 @@
-NAME = RPN
+NAME = PmergeMe
 
 CXX = c++
 
 CXXFLAGS = -Werror -Wall -Wextra -std=c++98
 DEPFLAGS = -MMD -MP
 
-SRC = main.cpp PergeMe.cpp
+SRC = main.cpp PmergeMe.cpp
 
 OBJ = $(SRC:.cpp=.o)
 DEP = $(SRC:.cpp=.d)
